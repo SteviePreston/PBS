@@ -1,6 +1,5 @@
-import { Component} from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -14,14 +13,38 @@ interface LoginResponse {
   styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
-  loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(128)]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8),Validators.maxLength(64)]),
-  });
+  loginForm!: FormGroup;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private formbuilder: FormBuilder) {}
+
+  ngOnInit(){
+
+    this.loginForm = this.formbuilder.group({
+        email: ['', [
+          Validators.required,
+          Validators.email,
+          Validators.minLength(10),
+          Validators.maxLength(128)
+        ]],
+        password: ['', [
+          Validators.required,
+          // Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'), //! should add this?
+          Validators.minLength(8),
+          Validators.maxLength(64)
+
+        ]],
+    })
+  }
+
+  get email() {
+    return this.loginForm.get('email');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
+  }
 
 
   loginSubmit() {

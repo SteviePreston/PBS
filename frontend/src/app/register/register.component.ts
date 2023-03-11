@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -9,22 +8,118 @@ import { Router } from '@angular/router';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
-  registerForm = new FormGroup({
-    firstName: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z-]{0,16}$'), Validators.minLength(2), Validators.maxLength(16)]),
-    lastName: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z-]{0,32}$'), Validators.minLength(3), Validators.maxLength(32)]),
-    houseNumber: new FormControl('', [Validators.required, Validators.pattern('^[1-9][0-9]{0,5}$'), Validators.minLength(1), Validators.maxLength(6), Validators.min(1)]),
-    address: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z -]{0,64}$'), Validators.minLength(5), Validators.maxLength(64)]),
-    city: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z-]{0,16}$'), Validators.minLength(2), Validators.maxLength(16)]),
-    county: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z-]{0,16}$'), Validators.minLength(2), Validators.maxLength(16)]),
-    postCode: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9]{0,8}$'), Validators.minLength(2), Validators.maxLength(16)]),
-    phoneNumber: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{0,16}$'), Validators.minLength(9), Validators.maxLength(16)]),
-    email: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(128)]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(64)]),
-  });
+export class RegisterComponent implements OnInit{
 
-  constructor(private http: HttpClient, private router: Router) {}
+  registerForm!: FormGroup;
 
+  constructor(private http: HttpClient, private router: Router, private formbuilder: FormBuilder) {}
+
+  ngOnInit() {
+
+    this.registerForm = this.formbuilder.group({
+      firstName: ['', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z-]{0,16}$'),
+        Validators.minLength(2),
+        Validators.maxLength(16),
+      ]],
+      lastName: ['', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z -]{0,32}$'),
+        Validators.minLength(3),
+        Validators.maxLength(32),
+      ]],
+      houseNumber: ['', [
+        Validators.required,
+        Validators.pattern('^[1-9][0-9]{0,5}$'),
+        Validators.minLength(1),
+        Validators.maxLength(6),
+        Validators.min(1),
+      ]],
+      address: ['', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z -]{0,64}$'),
+        Validators.minLength(5),
+        Validators.maxLength(64),
+      ]],
+      city: ['', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z-]{0,16}$'), 
+        Validators.minLength(2), 
+        Validators.maxLength(16),
+      ]],
+      county: ['', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z-]{0,16}$'), 
+        Validators.minLength(2), 
+        Validators.maxLength(16),
+      ]],
+      postCode: ['', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9]{0,8}$'), 
+        Validators.minLength(2), 
+        Validators.maxLength(16),
+      ]],
+      phoneNumber: ['', [
+        Validators.required,
+        Validators.pattern('^[0-9]{0,16}$'), 
+        Validators.minLength(9), 
+        Validators.maxLength(16),
+      ]],
+      email: ['', [
+        Validators.required,
+        Validators.email,
+        Validators.minLength(10),
+        Validators.maxLength(128),
+      ]],
+      password: ['', [
+        Validators.required,
+        // Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'), //! should add this?
+        Validators.minLength(8), 
+        Validators.maxLength(64),
+      ]],
+  })
+  }
+
+  get firstName() {
+    return this.registerForm.get('firstName');
+  }
+
+  get lastName() {
+    return this.registerForm.get('lastName');
+  }
+
+  get houseNumber() {
+    return this.registerForm.get('houseNumber');
+  }
+
+  get address() {
+    return this.registerForm.get('address');
+  }
+
+  get city() {
+    return this.registerForm.get('city');
+  }
+
+  get county() {
+    return this.registerForm.get('county');
+  }
+
+  get postCode() {
+    return this.registerForm.get('postCode');
+  }
+
+  get phoneNumber() {
+    return this.registerForm.get('phoneNumber');
+  }
+
+  get email() {
+    return this.registerForm.get('email');
+  }
+
+  get password() {
+    return this.registerForm.get('password');
+  }
 
   registerSubmit() {
     const data = this.registerForm.value;

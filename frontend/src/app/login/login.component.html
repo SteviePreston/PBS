@@ -13,9 +13,24 @@
           type="email"
         />
         <mat-hint>Enter your email!</mat-hint>
+        <mat-error *ngIf="email?.hasError('minlength') && email?.touched">
+          Your email is too short!
+        </mat-error>
         <mat-error
           *ngIf="
-            loginForm.controls.email.invalid && loginForm.controls.email.touched
+            email?.hasError('maxlength') &&
+            !email?.hasError('minlength') &&
+            email?.touched
+          "
+        >
+          Your email is too long!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            email?.invalid &&
+            !email?.hasError('minlength') &&
+            !email?.hasError('maxlength') &&
+            email?.touched
           "
         >
           Use a valid email!
@@ -33,10 +48,24 @@
           type="password"
         />
         <mat-hint>Enter your password!</mat-hint>
+        <mat-error *ngIf="password?.hasError('minlength') && password?.touched">
+          Your password is too short!
+        </mat-error>
         <mat-error
           *ngIf="
-            loginForm.controls.password.invalid &&
-            loginForm.controls.password.touched
+            password?.hasError('maxlength') &&
+            !password?.hasError('minlength') &&
+            password?.touched
+          "
+        >
+          Your password is too long!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            password?.invalid &&
+            !password?.hasError('minlength') &&
+            !password?.hasError('maxlength') &&
+            password?.touched
           "
         >
           Enter your password!
