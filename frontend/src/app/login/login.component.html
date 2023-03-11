@@ -1,0 +1,54 @@
+<div class="loginform">
+  <h2>Login!</h2>
+  <p>Please fill in this form to login!</p>
+  <br />
+  <form [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
+    <div>
+      <mat-form-field>
+        <mat-label>Email:</mat-label>
+        <input
+          matInput
+          placeholder="ex: john@icloud.com"
+          formControlName="email"
+          type="email"
+        />
+        <mat-hint>Enter your email!</mat-hint>
+        <mat-error
+          *ngIf="
+            loginForm.controls.email.invalid && loginForm.controls.email.touched
+          "
+        >
+          Use a valid email!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <br />
+    <div>
+      <mat-form-field>
+        <mat-label>Password:</mat-label>
+        <input
+          matInput
+          placeholder="ex: Apples123"
+          formControlName="password"
+          type="password"
+        />
+        <mat-hint>Enter your password!</mat-hint>
+        <mat-error
+          *ngIf="
+            loginForm.controls.password.invalid &&
+            loginForm.controls.password.touched
+          "
+        >
+          Enter your password!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <br />
+    <div>
+      <p>Complete the form to enable button.</p>
+      <button mat-raised-button type="submit" [disabled]="!loginForm.valid">
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,217 @@
+<div class="registerform">
+  <h2>Register!</h2>
+  <p>Please fill in this form to register!</p>
+  <br />
+  <form [formGroup]="registerForm" (submit)="registerSubmit()">
+    <h3>Name:</h3>
+    <div>
+      <mat-form-field>
+        <mat-label>First Name:</mat-label>
+        <input
+          matInput
+          placeholder="ex: John"
+          formControlName="firstName"
+          type="text"
+        />
+        <mat-hint>Enter your first name!</mat-hint>
+        <mat-error
+          *ngIf="
+            registerForm.controls.firstName.invalid &&
+            registerForm.controls.firstName.touched
+          "
+        >
+          Enter your first name like the example!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Last Name:</mat-label>
+        <input
+          matInput
+          placeholder="ex: Doe"
+          formControlName="lastName"
+          type="text"
+        />
+        <mat-hint>Enter your last name!</mat-hint>
+        <mat-error
+          *ngIf="
+            registerForm.controls.lastName.invalid &&
+            registerForm.controls.lastName.touched
+          "
+        >
+          Enter your last name like the example!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <h3>Address:</h3>
+    <div>
+      <mat-form-field>
+        <mat-label>House Number:</mat-label>
+        <input
+          matInput
+          placeholder="ex: 25"
+          formControlName="houseNumber"
+          input="number"
+        />
+        <mat-hint>Enter your house number!</mat-hint>
+        <mat-error
+          *ngIf="
+            registerForm.controls.houseNumber.invalid &&
+            registerForm.controls.houseNumber.touched
+          "
+        >
+          Enter a house number like the example!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Address:</mat-label>
+        <input
+          matInput
+          placeholder="ex: Main Street"
+          formControlName="address"
+          type="text"
+        />
+        <mat-hint>Enter your address!</mat-hint>
+        <mat-error
+          *ngIf="
+            registerForm.controls.address.invalid &&
+            registerForm.controls.address.touched
+          "
+        >
+          Enter a address like the example!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>City:</mat-label>
+        <input
+          matInput
+          placeholder="ex: Belfast"
+          formControlName="city"
+          type="text"
+        />
+        <mat-hint>Enter your city!</mat-hint>
+        <mat-error
+          *ngIf="
+            registerForm.controls.city.invalid &&
+            registerForm.controls.city.touched
+          "
+        >
+          Enter a city like the example!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>County:</mat-label>
+        <input
+          matInput
+          placeholder="ex: Down"
+          formControlName="county"
+          type="text"
+        />
+        <mat-hint>Enter your county!</mat-hint>
+        <mat-error
+          *ngIf="
+            registerForm.controls.county.invalid &&
+            registerForm.controls.county.touched
+          "
+        >
+          Enter a county like the example!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Postcode:</mat-label>
+        <input
+          matInput
+          placeholder="ex: BT57LQ"
+          formControlName="postCode"
+          input="text"
+        />
+        <mat-hint>Enter your postcode!</mat-hint>
+        <mat-error
+          *ngIf="
+            registerForm.controls.postCode.invalid &&
+            registerForm.controls.postCode.touched
+          "
+        >
+          Enter a postcode like the example!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <h3>Contact:</h3>
+    <div>
+      <mat-form-field>
+        <mat-label>Phone Number:</mat-label>
+        <input
+          matInput
+          placeholder="ex: 07774414323"
+          formControlName="phoneNumber"
+          input="number"
+        />
+        <mat-hint>Enter your phone number!</mat-hint>
+        <mat-error
+          *ngIf="
+            registerForm.controls.phoneNumber.invalid &&
+            registerForm.controls.phoneNumber.touched
+          "
+        >
+          Enter a phone number like the example!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Email:</mat-label>
+        <input
+          matInput
+          placeholder="ex: john@icloud.com"
+          formControlName="email"
+          type="email"
+        />
+        <mat-hint>Enter your email!</mat-hint>
+        <mat-error
+          *ngIf="
+            registerForm.controls.email.invalid &&
+            registerForm.controls.email.touched
+          "
+        >
+          Enter an email like the example!!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Password:</mat-label>
+        <input
+          matInput
+          placeholder="ex: Apples123"
+          formControlName="password"
+          input="text"
+        />
+        <mat-hint>Enter your password!</mat-hint>
+        <mat-error
+          *ngIf="
+            registerForm.controls.password.invalid &&
+            registerForm.controls.password.touched
+          "
+        >
+          Enter an password like the example!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <br />
+    <div>
+      <p>Complete the form to enable button.</p>
+      <button mat-raised-button type="submit" [disabled]="!registerForm.valid">
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
