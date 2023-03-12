@@ -90,13 +90,11 @@ export class RegisterComponent implements OnInit{
     if (password?.value !== confirmPassword?.value) {
       if (confirmPassword) {
         confirmPassword.setErrors({ 'mismatch': true });
-        console.log("passwords dont match");
       }
       return { 'mismatch': true };
     } else {
       if (confirmPassword) {
         confirmPassword.setErrors(null);
-        console.log("passwords match");
       }
       return null;
     }
