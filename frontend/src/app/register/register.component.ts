@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -78,7 +78,28 @@ export class RegisterComponent implements OnInit{
         Validators.minLength(8), 
         Validators.maxLength(64),
       ]],
-  })
+      confirmPassword: ['', [
+        Validators.required,
+      ]],
+  }, { validator: RegisterComponent.passwordMatchValidator })
+  }
+
+  static passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const password = control.get('password');
+    const confirmPassword = control.get('confirmPassword');
+    if (password?.value !== confirmPassword?.value) {
+      if (confirmPassword) {
+        confirmPassword.setErrors({ 'mismatch': true });
+        console.log("passwords dont match");
+      }
+      return { 'mismatch': true };
+    } else {
+      if (confirmPassword) {
+        confirmPassword.setErrors(null);
+        console.log("passwords match");
+      }
+      return null;
+    }
   }
 
   get firstName() {
@@ -119,6 +140,10 @@ export class RegisterComponent implements OnInit{
 
   get password() {
     return this.registerForm.get('password');
+  }
+
+  get confirmPassword() {
+    return this.registerForm.get('confirmPassword');
   }
 
   registerSubmit() {
