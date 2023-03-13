@@ -18,6 +18,12 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminComponent } from './admin/admin.component';
+import { HeaderComponent } from './header/header.component';
+import { CalendarComponent } from './calendar/calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { BookingComponent } from './booking/booking.component';
+import { EmailServiceComponent } from './email-service/email-service.component';
+import { AccountModificationComponent } from './account-modification/account-modification.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +31,11 @@ import { AdminComponent } from './admin/admin.component';
     RegisterComponent,
     LoginComponent,
     AdminComponent,
+    HeaderComponent,
+    CalendarComponent,
+    BookingComponent,
+    EmailServiceComponent,
+    AccountModificationComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +47,7 @@ import { AdminComponent } from './admin/admin.component';
     MatCheckboxModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    FullCalendarModule,
     RouterModule.forRoot([
       //{ path: '', component: HomeComponent, canActivate: [AuthGuardService] },
       { path: 'login', component: LoginComponent },
