@@ -24,6 +24,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { BookingComponent } from './booking/booking.component';
 import { EmailServiceComponent } from './email-service/email-service.component';
 import { AccountModificationComponent } from './account-modification/account-modification.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AccountModificationComponent } from './account-modification/account-mod
     CalendarComponent,
     BookingComponent,
     EmailServiceComponent,
-    AccountModificationComponent
+    AccountModificationComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

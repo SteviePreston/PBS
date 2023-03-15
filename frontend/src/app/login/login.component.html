@@ -1,83 +1,84 @@
 <div class="loginform">
-  <h2>Login!</h2>
-  <p>Please fill in this form to login!</p>
-  <br />
-  <form [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
-    <div>
-      <mat-form-field>
-        <mat-label>Email:</mat-label>
-        <input
-          matInput
-          placeholder="ex: john@icloud.com"
-          formControlName="email"
-          type="email"
-        />
-        <mat-hint>Enter your email!</mat-hint>
-        <mat-error *ngIf="email?.hasError('minlength') && email?.touched">
-          Your email is too short!
-        </mat-error>
-        <mat-error
-          *ngIf="
-            email?.hasError('maxlength') &&
-            !email?.hasError('minlength') &&
-            email?.touched
-          "
-        >
-          Your email is too long!
-        </mat-error>
-        <mat-error
-          *ngIf="
-            email?.invalid &&
-            !email?.hasError('minlength') &&
-            !email?.hasError('maxlength') &&
-            email?.touched
-          "
-        >
-          Use a valid email!
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <br />
-    <div>
-      <mat-form-field>
-        <mat-label>Password:</mat-label>
-        <input
-          matInput
-          placeholder="ex: Apples123"
-          formControlName="password"
-          type="password"
-        />
-        <mat-hint>Enter your password!</mat-hint>
-        <mat-error *ngIf="password?.hasError('minlength') && password?.touched">
-          Your password is too short!
-        </mat-error>
-        <mat-error
-          *ngIf="
-            password?.hasError('maxlength') &&
-            !password?.hasError('minlength') &&
-            password?.touched
-          "
-        >
-          Your password is too long!
-        </mat-error>
-        <mat-error
-          *ngIf="
-            password?.invalid &&
-            !password?.hasError('minlength') &&
-            !password?.hasError('maxlength') &&
-            password?.touched
-          "
-        >
-          Enter your password!
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <br />
-    <div>
-      <p>Complete the form to enable button.</p>
-      <button mat-raised-button type="submit" [disabled]="!loginForm.valid">
-        Submit
-      </button>
-    </div>
-  </form>
-</div>
+    <h2>Login!</h2>
+    <p>Please fill in this form to login!</p>
+    <form [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
+      <div>
+        <mat-form-field>
+          <mat-label>Email:</mat-label>
+          <input
+            matInput
+            placeholder="ex: john@icloud.com"
+            formControlName="email"
+            type="email"
+          />
+          <mat-hint>Enter your email!</mat-hint>
+          <mat-error *ngIf="email?.hasError('minlength') && email?.touched">
+            Your email is too short!
+          </mat-error>
+          <mat-error
+            *ngIf="
+              email?.hasError('maxlength') &&
+              !email?.hasError('minlength') &&
+              email?.touched
+            "
+          >
+            Your email is too long!
+          </mat-error>
+          <mat-error
+            *ngIf="
+              email?.invalid &&
+              !email?.hasError('minlength') &&
+              !email?.hasError('maxlength') &&
+              email?.touched
+            "
+          >
+            Use a valid email!
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Password:</mat-label>
+          <input
+            matInput
+            placeholder="ex: Apples123"
+            formControlName="password"
+            type="password"
+          />
+          <mat-hint>Enter your password!</mat-hint>
+          <mat-error *ngIf="password?.hasError('minlength') && password?.touched">
+            Your password is too short!
+          </mat-error>
+          <mat-error
+            *ngIf="
+              password?.hasError('maxlength') &&
+              !password?.hasError('minlength') &&
+              password?.touched
+            "
+          >
+            Your password is too long!
+          </mat-error>
+          <mat-error
+            *ngIf="
+              password?.invalid &&
+              !password?.hasError('minlength') &&
+              !password?.hasError('maxlength') &&
+              password?.touched
+            "
+          >
+            Enter your password!
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <p>Complete the form to enable button.</p>
+        <button mat-raised-button type="submit" [disabled]="!loginForm.valid">
+          Log In
+        </button>
+      </div>
+      <div>
+        <h5>New to Prestige Boilers?</h5>
+        <h5><a href="http://localhost:4200/register">Register Here!</a></h5>
+      </div>
+    </form>
+  </div>

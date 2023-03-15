@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { HeaderComponent } from '../header/header.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 interface LoginResponse {
   token: string;
@@ -16,6 +17,7 @@ interface LoginResponse {
 export class LoginComponent implements OnInit{
 
   loginForm!: FormGroup;
+  headerComponent: any;
 
   constructor(private http: HttpClient, private router: Router, private formbuilder: FormBuilder) {}
 
@@ -58,7 +60,8 @@ export class LoginComponent implements OnInit{
         localStorage.setItem('token', token);
         alert("Thank you for logging in!");
         // Redirect to homepage
-        this.router.navigate(['/admin']);
+        this.router.navigate(['/home']);
+        this.headerComponent.headerReload();
       },
       (error) => {
         console.error(error);

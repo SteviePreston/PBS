@@ -15,7 +15,7 @@ import { AuthUserService } from '../auth-user.service';
 export class HeaderComponent {
   
 
-  constructor(public authService: AuthUserService) {}
+  constructor(public authService: AuthUserService,  private router: Router) {}
 
   
   height = window.innerHeight;
@@ -23,13 +23,16 @@ export class HeaderComponent {
   isMenuOpen = true;
   isAdmin = false;
 
+
   ngOnInit(){
+    console.log("header is being reloaded");
+    console.log('isAdmin', this.isAdmin);
     if(this.width < 768) {
       this.isMenuOpen = false;
     };
     this.authService.checkAdmin();
     //this.isAdmin = this.authService.userIsAdmin;
-    console.log('isAdmin', this.isAdmin);
+    
   }
  
 
@@ -43,5 +46,17 @@ export class HeaderComponent {
 
   menuOpen(){
     return this.isMenuOpen;
+  }
+  
+  headerLogout() {
+   this.headerReload();
+    this.authService.logout();
+  }
+
+  headerReload() {
+    console.log("header reload");
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([this.router.url]);
   }
 }

@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { BookingComponent } from './booking/booking.component';
 import { AccountModificationComponent } from './account-modification/account-modification.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   { path: 'calendar', component: CalendarComponent},
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'accountModification', component: AccountModificationComponent},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'home', component: HomeComponent }
   //TODO: Add sign out functionality
 ];
 

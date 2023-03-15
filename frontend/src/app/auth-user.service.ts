@@ -31,9 +31,12 @@ export class AuthUserService {
 
   logout() {
     localStorage.removeItem('token');
+    this._userIsAdmin.next(false);
     this.router.navigate(['/login']);
+    console.log("checking admin:");
+    console.log(this._userIsAdmin.value);
   }
-  
+
   get userIsAdmin() {
     return this._userIsAdmin.asObservable();
   }
