@@ -50,20 +50,6 @@ import { HomeComponent } from './home/home.component';
     HttpClientModule,
     BrowserAnimationsModule,
     FullCalendarModule,
-    RouterModule.forRoot([
-      //{ path: '', component: HomeComponent, canActivate: [AuthGuardService] },
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
-      { path: 'admin', component: AdminComponent, canActivate: [AuthGuardService]},
-    ])
-  ],
-  providers: [
-    AuthGuardService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptorService,
-      multi: true
-    }
   ],
   bootstrap: [AppComponent]
 })
