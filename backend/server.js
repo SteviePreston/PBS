@@ -211,6 +211,53 @@ app.get(API_PATH + "/admin/:accountEmail", authenticateToken, (req, res)=>{
     })
 });
 
+// app.get(API_PATH + "/bookings", (req, res) => {
+//     const qr = `SELECT b.bookingID, b.customerID, b.bookingDate, b.bookingTime, b.bookingType, b.houseNumber, b.address, b.city, b.county, b.postcode, a.firstName, a.lastName, a.email, c.phoneNumber
+//                 FROM BOOKING b
+//                 JOIN ACCOUNT a ON b.customerID = a.customerID
+//                 JOIN CUSTOMER c ON b.customerID = c.customerID`;
+  
+//     db.query(qr, (err, result) => {
+//       if (err) {
+//         console.error(err);
+//         res.status(500).json({ message: "Error fetching bookings" });
+//       } else {
+//         res.status(200).json(result);
+//       }
+//     });
+//   });
+
+//Get Bookings
+app.get(API_PATH + "/bookings", (req, res) => {
+    const qr = `SELECT b.bookingID, b.customerID, b.bookingDate, b.bookingTime, b.bookingType, b.houseNumber, b.address, b.city, b.county, b.postcode, a.firstName, a.lastName, a.email, c.phoneNumber
+                FROM BOOKING b
+                JOIN ACCOUNT a ON b.customerID = a.customerID
+                JOIN CUSTOMER c ON b.customerID = c.customerID`;
+  
+    db.query(qr, (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(500).json({ message: "Error fetching bookings" });
+      } else {
+        res.status(200).json(result);
+      }
+    });
+  });
+
+// app.get(API_PATH + "/bookings", (req, res) => {
+//     const qr = `SELECT * FROM BOOKING`;
+  
+//     db.query(qr, (err, result) => {
+//       if (err) {
+//         console.error(err);
+//         res.status(500).json({ message: "Error fetching bookings" });
+//       } else {
+//         res.status(200).json(result);
+//       }
+//     });
+//   });
+  
+
 //! LOGOUT SHOULD BE HANDLED IN THE FRONTEND AS JWT IS A CLIENTSIDE TOKEN!
 //! EXAMPLE ANGULAR CODE MAKE A BUTTON WITH A FUNCTION CALLED LOGOUT WHICH RUNS ON SUBMIT
 //! <button (click)="Logout()"> Logout! </button>

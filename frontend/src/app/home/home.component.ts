@@ -13,11 +13,12 @@ import { AuthUserService } from '../auth-user.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  @ViewChild(HeaderComponent) headerComponent!: HeaderComponent;
 
-  constructor(public authService: AuthUserService) {}
+  constructor(public authService: AuthUserService, public headerComponent: HeaderComponent, private router: Router) {}
 
   ngOnInit() {
-    this.headerComponent.ngOnInit();
+    //this.headerComponent.ngOnDestroy();
+   // this.headerComponent.headerReload();
+   
   }
 }

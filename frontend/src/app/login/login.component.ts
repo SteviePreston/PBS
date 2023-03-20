@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { HeaderComponent } from '../header/header.component';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 interface LoginResponse {
   token: string;
@@ -17,9 +17,8 @@ interface LoginResponse {
 export class LoginComponent implements OnInit{
 
   loginForm!: FormGroup;
-  headerComponent: any;
 
-  constructor(private http: HttpClient, private router: Router, private formbuilder: FormBuilder) {}
+  constructor(private http: HttpClient, private router: Router, private formbuilder: FormBuilder, public HeaderComponent: HeaderComponent) {}
 
   ngOnInit(){
 
@@ -38,7 +37,15 @@ export class LoginComponent implements OnInit{
 
         ]],
     })
+
+    // Listen to route changes
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd && event.url === '/home') {
+        window.location.reload();
+      }
+    });
   }
+
 
   get email() {
     return this.loginForm.get('email');
@@ -60,8 +67,9 @@ export class LoginComponent implements OnInit{
         localStorage.setItem('token', token);
         alert("Thank you for logging in!");
         // Redirect to homepage
+
         this.router.navigate(['/home']);
-        this.headerComponent.headerReload();
+
       },
       (error) => {
         console.error(error);

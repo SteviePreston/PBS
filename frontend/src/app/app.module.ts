@@ -59,6 +59,7 @@ import { HomeComponent } from './home/home.component';
   ],
   providers: [
     AuthGuardService,
+    HeaderComponent,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
