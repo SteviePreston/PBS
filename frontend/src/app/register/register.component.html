@@ -1,7 +1,5 @@
 <div class="registerform">
   <h2>Register!</h2>
-  <p>Please fill in this form to register!</p>
-  <br />
   <form [formGroup]="registerForm" (submit)="registerSubmit()">
     <h3>Name:</h3>
     <div>
@@ -477,11 +475,11 @@
         </mat-error>
       </mat-form-field>
     </div>
-    <br />
+
     <div>
       <p>Complete the form to enable button.</p>
       <button mat-raised-button type="submit" [disabled]="!registerForm.valid">
-        Submit
+        Create Account
       </button>
     </div>
   </form>

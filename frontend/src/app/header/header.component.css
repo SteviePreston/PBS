@@ -1,0 +1,120 @@
+/*
+.menu.show {
+    display: block;
+  }
+
+img.logo {
+height:60px;
+}
+*/
+
+header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo-container {
+    flex: 1;
+    text-align: left;
+  }
+  
+  .logo {
+    height: 60px;
+  }
+  
+  .menu-container {
+    text-align: right;
+    float: right;
+  }
+  
+  .desktop-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .desktop-menu li {
+    margin-right: 20px;
+  }
+  
+  .desktop-menu li:last-child {
+    margin-right: 0;
+  }
+  
+  .mobile-menu {
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+  }
+  
+  
+  @media screen and (max-width: 767px) {
+    .desktop-menu {
+      display: none;
+    }
+    .menu-container {
+        float: right;
+        text-align: right;
+    }
+  
+    .menu-toggle {
+      display: block;
+      font-size: 24px;
+      background-color: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      text-align: right;
+      border-right: 0px;
+      margin-right:0px;
+    }
+  
+    .menu-toggle:hover {
+      color: #007bff;
+    }
+  
+    .mobile-menu {
+      display: block;
+      padding: 20px 0;
+      text-align: center;
+    }
+  
+    .mobile-menu li {
+      margin-bottom: 10px;
+    }
+  }
+  
+  @media screen and (min-width: 768px) {
+    .menu-container {
+      position: relative;
+      float: right;
+      text-align: right;
+      flex: right;
+    }
+  
+    .menu-toggle {
+      display: none;
+      text-align: right;
+    }
+
+    .menu {
+    display: inline;
+    }
+  
+    .mobile-menu {
+      display: none;
+    }
+  }

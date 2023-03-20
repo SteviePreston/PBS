@@ -24,6 +24,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { BookingComponent } from './booking/booking.component';
 import { EmailServiceComponent } from './email-service/email-service.component';
 import { AccountModificationComponent } from './account-modification/account-modification.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AccountModificationComponent } from './account-modification/account-mod
     CalendarComponent,
     BookingComponent,
     EmailServiceComponent,
-    AccountModificationComponent
+    AccountModificationComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -48,20 +50,6 @@ import { AccountModificationComponent } from './account-modification/account-mod
     HttpClientModule,
     BrowserAnimationsModule,
     FullCalendarModule,
-    RouterModule.forRoot([
-      //{ path: '', component: HomeComponent, canActivate: [AuthGuardService] },
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
-      { path: 'admin', component: AdminComponent, canActivate: [AuthGuardService]},
-    ])
-  ],
-  providers: [
-    AuthGuardService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptorService,
-      multi: true
-    }
   ],
   bootstrap: [AppComponent]
 })
