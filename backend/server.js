@@ -211,14 +211,232 @@ app.get(API_PATH + "/admin/:accountEmail", authenticateToken, (req, res)=>{
     })
 });
 
-//! LOGOUT SHOULD BE HANDLED IN THE FRONTEND AS JWT IS A CLIENTSIDE TOKEN!
-//! EXAMPLE ANGULAR CODE MAKE A BUTTON WITH A FUNCTION CALLED LOGOUT WHICH RUNS ON SUBMIT
-//! <button (click)="Logout()"> Logout! </button>
-//! Logout(){
-//!     localStorage.removeItem("token");
-//!     this.router.navigate(['/Home']);
-//! }
+// app.get(API_PATH + "/bookings", (req, res) => {
+//     const qr = `SELECT b.bookingID, b.customerID, b.bookingDate, b.bookingTime, b.bookingType, b.houseNumber, b.address, b.city, b.county, b.postcode, a.firstName, a.lastName, a.email, c.phoneNumber
+//                 FROM BOOKING b
+//                 JOIN ACCOUNT a ON b.customerID = a.customerID
+//                 JOIN CUSTOMER c ON b.customerID = c.customerID`;
+  
+//     db.query(qr, (err, result) => {
+//       if (err) {
+//         console.error(err);
+//         res.status(500).json({ message: "Error fetching bookings" });
+//       } else {
+//         res.status(200).json(result);
+//       }
+//     });
+//   });
 
+//Get Bookings for Admin Calendar
+app.get(API_PATH + "/bookings", authenticateToken, (req, res) => {
+    const qr = `SELECT b.bookingID, b.customerID, b.bookingDate, b.bookingTime, b.bookingType, b.houseNumber, b.address, b.city, b.county, b.postcode, a.firstName, a.lastName, a.email, c.phoneNumber
+                FROM BOOKING b
+                JOIN ACCOUNT a ON b.customerID = a.customerID
+                JOIN CUSTOMER c ON b.customerID = c.customerID`;
+  
+    db.query(qr, (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(500).json({ message: "Error fetching bookings" });
+      } else {
+        res.status(200).json(result);
+      }
+    });
+  });
+/*
+//* get booking times from the database based on the date selected
+app.get(API_PATH + "/booking:bookingDate", (req, res)=>{
+    let bookingDate = req.params.bookingDate;
+    let qr = 'SELECT booktime FROM BOOKING WHERE bookdate = ?';
+
+    db.query(qr, [bookingDate], (err, bookingResult) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Error retrieving booking times');
+        } else {
+            if(bookingResult.length>0) {
+                let bookingTimes = bookingResult.map(booking => booking.booktime);
+                this.timeOptions = bookingTimes;
+            } else {
+                res.status(404).send("data not found");
+            }
+        }
+    });
+});*/
+
+/*
+app.put(API_PATH + "/booking", (req, res) => {
+    let email = req.params.email;
+    
+    let customerID = '20';
+    let bookingDate = req.body.bookingDate;
+    let bookingTime = req.body.bookingTime;
+    let bookingType = req.body.bookingType;
+    let houseNumber = req.body.houseNumber;
+    let address = req.body.address;
+    let city = req.body.city;
+    let county = req.body.county;
+    let postCode = req.body.postCode;
+
+
+    //let bookingQuery = `INSERT INTO BOOKING SET customerID=?, bookingDate=?, bookingTime=?, bookingType=?, houseNumber=?, address=?, city=?, county=?, postCode=? WHERE customerID IN (SELECT customerID FROM ACCOUNT WHERE email=?)`;
+    let bookingQuery = `INSERT INTO BOOKING SET customerID=?, bookingDate=?, bookingTime=?, bookingType=?, houseNumber=?, address=?, city=?, county=?, postCode=?)`;
+    db.query(bookingQuery, [customerID, bookingDate, bookingTime, bookingType, houseNumber, address, city, county, postCode], (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({message: 'Internal Server Error'});
+        } else {
+            res.status(200).json({message: 'Booking updated successfully'});
+        }
+    });
+})
+*/
+
+/*
+// get customer id from the database based on the email
+app.get(API_PATH + "/customer/:email", (req, res)=>{
+    let email = req.params.email;
+    let qr = 'SELECT customerID FROM ACCOUNT WHERE email = ?';
+    let customerID;
+
+    db.query(qr, [email], (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Error retrieving customer data');
+        } else {
+            if(result.length>0) {
+                customerID = result[0].customerID;
+            } else {
+                res.status(404).send("data not found");
+            }
+        }
+    });
+
+});*/
+
+ // Post a booking into the database.
+ app.post(API_PATH +"/booking/", authenticateToken, (req, res) => {
+
+    //let email = req.params.email;
+     let customerID = '1';
+
+     let bookingDate = req.body.formattedDate;
+     let bookingTime = req.body.bookingTime;
+     let bookingType = req.body.bookingType;
+     let houseNumber = req.body.houseNumber;
+     let address = req.body.address;
+     let city = req.body.city;
+     let county = req.body.county;
+     let postCode = req.body.postCode;
+  
+     let qr = `INSERT INTO BOOKING (customerID, bookingDate, bookingTime, bookingType, houseNumber, address, city, county, postCode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+     db.query(qr, [customerID, bookingDate, bookingTime, bookingType, houseNumber, address, city, county, postCode], (err, result) => {
+       if (err) {
+         console.log(err);
+         res.status(500).send("Error inserting record");
+       } else {
+        res.status(200).json({ success: true, message : "Record inserted successfully"});
+       }
+     });
+ });
+
+ app.get(API_PATH + "/account/:email", authenticateToken, (req, res) => {
+    let email = req.params.email;
+    let qr = `SELECT customerID FROM ACCOUNT WHERE email = ?`;
+  
+    db.query(qr, [email], (err, accountResult) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send("Error retrieving account data");
+      } else {
+        if (accountResult.length > 0) {
+          let customerID = accountResult[0].customerID;
+          let qr2 = `SELECT * FROM CUSTOMER WHERE customerID = ?`;
+  
+          db.query(qr2, [customerID], (err, customerResult) => {
+            if (err) {
+              console.error(err);
+              res.status(500).send("Error retrieving customer data");
+            } else {
+              if (customerResult.length > 0) {
+                res.status(200).send({
+                  message: "Singular account data...",
+                  data: customerResult,
+                });
+              } else {
+                res.status(404).send("Data not found...");
+              }
+            }
+          });
+        } else {
+          res.status(404).send("Data not found...");
+        }
+      }
+    });
+  });
+  
+  //* user account modify endpoint
+app.put(API_PATH + "/account/:email", authenticateToken, (req, res) => {
+    let email = req.params.email;
+    
+    let houseNumber = req.body.houseNumber;
+    let address = req.body.address;
+    let city = req.body.city;
+    let county = req.body.county;
+    let postCode = req.body.postCode;
+    let phoneNumber = req.body.phoneNumber;
+
+    let updateCustomerQuery = `UPDATE CUSTOMER SET houseNumber=?, address=?, city=?, county=?, postCode=?, phoneNumber=? WHERE customerID IN (SELECT customerID FROM ACCOUNT WHERE email=?)`;
+
+    db.query(updateCustomerQuery, [houseNumber, address, city, county, postCode, phoneNumber, email], (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({message: 'Internal Server Error'});
+        } else {
+            res.status(200).json({message: 'Account updated successfully'});
+        }
+    });
+});
+
+ 
+ /*
+ //endpoint to get available booking times for a given date
+ app.get(API_PATH + "/booking/:bookingDate", (req, res)=>{
+    let bookingDate = req.params.bookingDate;
+    let qr = 'SELECT bookingTime FROM BOOKING WHERE bookingDate = ?';
+
+    db.query(qr, [bookingDate], (err, bookingResult) => {
+        if(err){
+            console.error(err);
+            res.status(500).send("Error retrieving booking times");
+        } else {
+            if(bookingResult.length>0) {
+                res.status(200).send({
+                    message: "Booking times retrieved.",
+                    data: bookingResult.map((booking) => booking.bookingTime),
+            });
+            } else {
+                res.status(404).send("Data not found");
+            }
+        }
+    });
+ });
+ */
+
+// app.get(API_PATH + "/bookings", (req, res) => {
+//     const qr = `SELECT * FROM BOOKING`;
+  
+//     db.query(qr, (err, result) => {
+//       if (err) {
+//         console.error(err);
+//         res.status(500).json({ message: "Error fetching bookings" });
+//       } else {
+//         res.status(200).json(result);
+//       }
+//     });
+//   });
+  
 
 //? =======================================================================================================================
 //* Middleware function
@@ -237,21 +455,6 @@ function authenticateToken(req, res, next) {
 }
 
 //? =======================================================================================================================
-// // THREE FILES: 
-// // Controller (api endpoints) eg app.post("/login", frontend sends request to backend via /login endpoint then sends to service layer 
-// app.post("/login", (req, res)=>{
-//     console.log(req.body, "Create data...");
-
-//     let userName = req.body.userName;
-//     let Password = req.body.Password;
-    
-//     //! send to service layer 
-//     //compare Username and Password to db_username and db_password
-//     //send a response back based on the comparasion
-// });
-// // Service Layer (validation) backend valiidation eg checks only one email per account
-
-// // Repositiory Layer direct DB access 
 
 //? =======================================================================================================================
 

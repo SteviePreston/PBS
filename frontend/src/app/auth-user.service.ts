@@ -9,7 +9,19 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AuthUserService {
   private _userIsAdmin = new BehaviorSubject<boolean>(false);
-  constructor(private http: HttpClient, private router: Router) { }
+  private _isLoggedIn = new BehaviorSubject<boolean>(false);
+  constructor(private http: HttpClient, private router: Router) {
+    this._isLoggedIn.next(this.checkLoggedIn());
+  }
+
+  private checkLoggedIn(): boolean {
+    const jwtToken = localStorage.getItem('token');
+    if (jwtToken) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   
   async checkAdmin() {
     const token = localStorage.getItem('token') as string;
@@ -39,5 +51,9 @@ export class AuthUserService {
 
   get userIsAdmin() {
     return this._userIsAdmin.asObservable();
+  }
+
+  get isLoggedIn() {
+    return this._isLoggedIn.asObservable();
   }
 }

@@ -6,9 +6,12 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { BookingComponent } from './booking/booking.component';
 import { AccountModificationComponent } from './account-modification/account-modification.component';
 import { HomeComponent } from './home/home.component';
+
 import { AuthGuardService } from './auth-guard.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorService } from './auth-interceptor.service';
+import { HeaderComponent } from './header/header.component';
+
 
 const routes: Routes = [
   { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuardService]},
@@ -16,8 +19,8 @@ const routes: Routes = [
   { path: 'accountModification', component: AccountModificationComponent, canActivate: [AuthGuardService]},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'home', component: HomeComponent }
-  //TODO: Add sign out functionality
+  { path: 'home', component: HomeComponent },
+  { path: 'header', component: HeaderComponent }
 ];
 
 @NgModule({

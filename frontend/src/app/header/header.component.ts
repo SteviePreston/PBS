@@ -34,8 +34,8 @@ export class HeaderComponent {
     //this.isAdmin = this.authService.userIsAdmin;
     
   }
- 
 
+ 
   onResize(event: any){
     this.isMenuOpen =  event.target.innerWidth >= 768
   }
@@ -49,7 +49,7 @@ export class HeaderComponent {
   }
   
   headerLogout() {
-   this.headerReload();
+    this.headerReload();
     this.authService.logout();
   }
 
@@ -57,6 +57,6 @@ export class HeaderComponent {
     console.log("header reload");
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate([this.router.url]);
+    this.router.navigate([this.router.url]);  
   }
 }

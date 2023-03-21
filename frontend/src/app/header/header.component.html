@@ -2,16 +2,16 @@
   <div class="logo-container">
     <img class="logo" src="../../assets/pictures/PBS_logo.png" alt="Logo">
   </div>
+  <button class="menu-toggle" (click)="toggleMenu()">☰</button>
   <div class="menu-container">
-    <button class="menu-toggle" (click)="toggleMenu()">☰</button>
     <ul class="menu" *ngIf="isMenuOpen">
       <a mat-button routerLink="home">Home</a>
       <a mat-button routerLink="booking">Booking</a>
       <a mat-button *ngIf="(authService.userIsAdmin | async)" routerLink="calendar">Calendar</a>
-      <a mat-button routerLink="accountModification">Account</a>
-      <a mat-button routerLink="login">Sign in</a>
-      <a mat-button routerLink="register">Register</a>
-      <button mat-raised-button type="submit" (click)="headerLogout()">Logout</button>
+      <a mat-button *ngIf="(authService.isLoggedIn | async)" routerLink="accountModification">Account</a>
+      <a mat-button *ngIf="!(authService.isLoggedIn | async)" routerLink="login">Sign in</a>
+      <a mat-button *ngIf="!(authService.isLoggedIn | async)" routerLink="register">Register</a>
+      <button mat-raised-button type="submit" *ngIf="(authService.isLoggedIn | async)" (click)="headerLogout()">Logout</button>
       
       <!--TODO: ADD SIGNOUT BUTTON
       <a mat-button routerLink="signOut">Sign out</a>
