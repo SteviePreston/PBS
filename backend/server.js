@@ -340,6 +340,65 @@ app.get(API_PATH + "/customer/:email", (req, res)=>{
        }
      });
  });
+
+ app.get(API_PATH + "/account/:email", (req, res) => {
+    let email = req.params.email;
+    let qr = `SELECT customerID FROM ACCOUNT WHERE email = ?`;
+  
+    db.query(qr, [email], (err, accountResult) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send("Error retrieving account data");
+      } else {
+        if (accountResult.length > 0) {
+          let customerID = accountResult[0].customerID;
+          let qr2 = `SELECT * FROM CUSTOMER WHERE customerID = ?`;
+  
+          db.query(qr2, [customerID], (err, customerResult) => {
+            if (err) {
+              console.error(err);
+              res.status(500).send("Error retrieving customer data");
+            } else {
+              if (customerResult.length > 0) {
+                res.status(200).send({
+                  message: "Singular account data...",
+                  data: customerResult,
+                });
+              } else {
+                res.status(404).send("Data not found...");
+              }
+            }
+          });
+        } else {
+          res.status(404).send("Data not found...");
+        }
+      }
+    });
+  });
+  
+  //* user account modify endpoint
+app.put(API_PATH + "/account/:email", (req, res) => {
+    let email = req.params.email;
+    
+    let houseNumber = req.body.houseNumber;
+    let address = req.body.address;
+    let city = req.body.city;
+    let county = req.body.county;
+    let postCode = req.body.postCode;
+    let phoneNumber = req.body.phoneNumber;
+
+    let updateCustomerQuery = `UPDATE CUSTOMER SET houseNumber=?, address=?, city=?, county=?, postCode=?, phoneNumber=? WHERE customerID IN (SELECT customerID FROM ACCOUNT WHERE email=?)`;
+
+    db.query(updateCustomerQuery, [houseNumber, address, city, county, postCode, phoneNumber, email], (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({message: 'Internal Server Error'});
+        } else {
+            res.status(200).json({message: 'Account updated successfully'});
+        }
+    });
+});
+
  
  /*
  //endpoint to get available booking times for a given date

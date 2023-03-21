@@ -1,0 +1,54 @@
+.accountForm {
+    background-color: #FFFFFF;
+    padding: 20px;
+    margin: auto;
+    width: 75%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .accountForm h2 {
+    text-align: center;
+  }
+  
+  .accountForm p {
+    text-align: center;
+    font-style: italic;
+  }
+  
+  .accountForm button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .accountForm button:hover:not(:disabled) {
+    background-color: red;
+  }
+  
+  .accountForm form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Add this rule to center the form horizontally */
+    justify-content: center; /* Add this rule to center the form vertically */
+  }
+  
+  .accountForm div {
+    width: 100%;
+    display: flex;
+    min-width: 150px;
+    max-width: 500px;
+    flex-direction: column;
+    align-items: center; /* Add this rule to center the input fields horizontally */
+  }
+  
+  .accountForm button {
+    margin-top: 20px;
+    background-color: #000000;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    align-self: center; /* Add this rule to center the submit button horizontally */
+  }
