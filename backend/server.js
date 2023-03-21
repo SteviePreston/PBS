@@ -227,7 +227,7 @@ app.get(API_PATH + "/admin/:accountEmail", authenticateToken, (req, res)=>{
 //     });
 //   });
 
-//Get Bookings
+//Get Bookings for Admin Calendar
 app.get(API_PATH + "/bookings", (req, res) => {
     const qr = `SELECT b.bookingID, b.customerID, b.bookingDate, b.bookingTime, b.bookingType, b.houseNumber, b.address, b.city, b.county, b.postcode, a.firstName, a.lastName, a.email, c.phoneNumber
                 FROM BOOKING b
@@ -243,6 +243,127 @@ app.get(API_PATH + "/bookings", (req, res) => {
       }
     });
   });
+/*
+//* get booking times from the database based on the date selected
+app.get(API_PATH + "/booking:bookingDate", (req, res)=>{
+    let bookingDate = req.params.bookingDate;
+    let qr = 'SELECT booktime FROM BOOKING WHERE bookdate = ?';
+
+    db.query(qr, [bookingDate], (err, bookingResult) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Error retrieving booking times');
+        } else {
+            if(bookingResult.length>0) {
+                let bookingTimes = bookingResult.map(booking => booking.booktime);
+                this.timeOptions = bookingTimes;
+            } else {
+                res.status(404).send("data not found");
+            }
+        }
+    });
+});*/
+
+/*
+app.put(API_PATH + "/booking", (req, res) => {
+    let email = req.params.email;
+    
+    let customerID = '20';
+    let bookingDate = req.body.bookingDate;
+    let bookingTime = req.body.bookingTime;
+    let bookingType = req.body.bookingType;
+    let houseNumber = req.body.houseNumber;
+    let address = req.body.address;
+    let city = req.body.city;
+    let county = req.body.county;
+    let postCode = req.body.postCode;
+
+
+    //let bookingQuery = `INSERT INTO BOOKING SET customerID=?, bookingDate=?, bookingTime=?, bookingType=?, houseNumber=?, address=?, city=?, county=?, postCode=? WHERE customerID IN (SELECT customerID FROM ACCOUNT WHERE email=?)`;
+    let bookingQuery = `INSERT INTO BOOKING SET customerID=?, bookingDate=?, bookingTime=?, bookingType=?, houseNumber=?, address=?, city=?, county=?, postCode=?)`;
+    db.query(bookingQuery, [customerID, bookingDate, bookingTime, bookingType, houseNumber, address, city, county, postCode], (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({message: 'Internal Server Error'});
+        } else {
+            res.status(200).json({message: 'Booking updated successfully'});
+        }
+    });
+})
+*/
+
+/*
+// get customer id from the database based on the email
+app.get(API_PATH + "/customer/:email", (req, res)=>{
+    let email = req.params.email;
+    let qr = 'SELECT customerID FROM ACCOUNT WHERE email = ?';
+    let customerID;
+
+    db.query(qr, [email], (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Error retrieving customer data');
+        } else {
+            if(result.length>0) {
+                customerID = result[0].customerID;
+            } else {
+                res.status(404).send("data not found");
+            }
+        }
+    });
+
+});*/
+
+ // Post a booking into the database.
+ app.post(API_PATH +"/booking/", (req, res) => {
+
+    //let email = req.params.email;
+     let customerID = '1';
+
+     let bookingDate = req.body.formattedDate;
+     let bookingTime = req.body.bookingTime;
+     let bookingType = req.body.bookingType;
+     let houseNumber = req.body.houseNumber;
+     let address = req.body.address;
+     let city = req.body.city;
+     let county = req.body.county;
+     let postCode = req.body.postCode;
+  
+     let qr = `INSERT INTO BOOKING (customerID, bookingDate, bookingTime, bookingType, houseNumber, address, city, county, postCode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+     db.query(qr, [customerID, bookingDate, bookingTime, bookingType, houseNumber, address, city, county, postCode], (err, result) => {
+       if (err) {
+         console.log(err);
+         res.status(500).send("Error inserting record");
+       } else {
+        res.status(200).json({ success: true, message : "Record inserted successfully"});
+       }
+     });
+ });
+ 
+ /*
+ //endpoint to get available booking times for a given date
+ app.get(API_PATH + "/booking/:bookingDate", (req, res)=>{
+    let bookingDate = req.params.bookingDate;
+    let qr = 'SELECT bookingTime FROM BOOKING WHERE bookingDate = ?';
+
+    db.query(qr, [bookingDate], (err, bookingResult) => {
+        if(err){
+            console.error(err);
+            res.status(500).send("Error retrieving booking times");
+        } else {
+            if(bookingResult.length>0) {
+                res.status(200).send({
+                    message: "Booking times retrieved.",
+                    data: bookingResult.map((booking) => booking.bookingTime),
+            });
+            } else {
+                res.status(404).send("Data not found");
+            }
+        }
+    });
+ });
+ */
 
 // app.get(API_PATH + "/bookings", (req, res) => {
 //     const qr = `SELECT * FROM BOOKING`;
