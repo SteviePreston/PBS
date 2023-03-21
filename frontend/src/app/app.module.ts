@@ -61,27 +61,9 @@ import { HomeComponent } from './home/home.component';
     MatRadioModule,
     MatNativeDateModule,
     MatDialogModule,
-    RouterModule.forRoot([
-      //{ path: '', component: HomeComponent, canActivate: [AuthGuardService] },
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
-      { path: 'admin', component: AdminComponent, canActivate: [AuthGuardService]},
-      { path: 'booking', component: BookingComponent },
-      
-    ])
   ],
-  exports: [
-    MatFormFieldModule,
-  ],
-  providers: [
-    AuthGuardService,
-    HeaderComponent,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptorService,
-      multi: true
-    }
-  ],
-  bootstrap: [AppComponent]
+  exports: [ MatFormFieldModule ],
+  providers: [ HeaderComponent ],
+  bootstrap: [ AppComponent ],
 })
 export class AppModule { }
