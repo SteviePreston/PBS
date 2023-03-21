@@ -1,486 +1,486 @@
 <div class="registerform">
-    <h2>Register!</h2>
-    <form [formGroup]="registerForm" (submit)="registerSubmit()">
-      <h3>Name:</h3>
-      <div>
-        <mat-form-field>
-          <mat-label>First Name:</mat-label>
-          <input
-            matInput
-            placeholder="ex: John"
-            formControlName="firstName"
-            type="text"
-          />
-          <mat-hint>Enter your first name!</mat-hint>
-          <mat-error
-            *ngIf="firstName?.hasError('minlength') && firstName?.touched"
-          >
-            Your name is too short!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              firstName?.hasError('maxlength') &&
-              !firstName?.hasError('minlength') &&
-              firstName?.touched
-            "
-          >
-            Your name is too long!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              firstName?.hasError('pattern') &&
-              !firstName?.hasError('maxlength') &&
-              !firstName?.hasError('minlength') &&
-              firstName?.touched
-            "
-          >
-            Your name cannot have special characters or numbers!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              firstName?.invalid &&
-              !firstName?.hasError('pattern') &&
-              !firstName?.hasError('minlength') &&
-              !firstName?.hasError('maxlength') &&
-              firstName?.touched
-            "
-          >
-            Enter your first name like the example!
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field>
-          <mat-label>Last Name:</mat-label>
-          <input
-            matInput
-            placeholder="ex: Doe"
-            formControlName="lastName"
-            type="text"
-          />
-          <mat-hint>Enter your last name!</mat-hint>
-          <mat-error *ngIf="lastName?.hasError('minlength') && lastName?.touched">
-            Your name is too short!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              lastName?.hasError('maxlength') &&
-              !lastName?.hasError('minlength') &&
-              lastName?.touched
-            "
-          >
-            Your name is too long!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              lastName?.hasError('pattern') &&
-              !lastName?.hasError('maxlength') &&
-              !lastName?.hasError('minlength') &&
-              lastName?.touched
-            "
-          >
-            Your name cannot have special characters or numbers!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              lastName?.invalid &&
-              !lastName?.hasError('pattern') &&
-              !lastName?.hasError('minlength') &&
-              !lastName?.hasError('maxlength') &&
-              lastName?.touched
-            "
-          >
-            Enter your last name like the example!
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <h3>Address:</h3>
-      <div>
-        <mat-form-field>
-          <mat-label>House Number:</mat-label>
-          <input
-            matInput
-            placeholder="ex: 25"
-            formControlName="houseNumber"
-            input="number"
-          />
-          <mat-hint>Enter your house number!</mat-hint>
-          <mat-error *ngIf="houseNumber?.hasError('min') && houseNumber?.touched">
-            Your house number cannot be negative or zero!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              houseNumber?.hasError('minlength') &&
-              !houseNumber?.hasError('min') &&
-              houseNumber?.touched
-            "
-          >
-            Enter a house number!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              houseNumber?.hasError('maxlength') &&
-              !houseNumber?.hasError('min') &&
-              !houseNumber?.hasError('minlength') &&
-              houseNumber?.touched
-            "
-          >
-            Your house number is too long!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              houseNumber?.hasError('pattern') &&
-              !houseNumber?.hasError('min') &&
-              !houseNumber?.hasError('maxlength') &&
-              !houseNumber?.hasError('minlength') &&
-              houseNumber?.touched
-            "
-          >
-            Your house number cannot have special characters, spaces or letters!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              houseNumber?.invalid &&
-              !houseNumber?.hasError('min') &&
-              !houseNumber?.hasError('pattern') &&
-              !houseNumber?.hasError('minlength') &&
-              !houseNumber?.hasError('maxlength') &&
-              houseNumber?.touched
-            "
-          >
-            Enter your house number like the example!
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field>
-          <mat-label>Address:</mat-label>
-          <input
-            matInput
-            placeholder="ex: Main Street"
-            formControlName="address"
-            type="text"
-          />
-          <mat-hint>Enter your address!</mat-hint>
-          <mat-error *ngIf="address?.hasError('minlength') && address?.touched">
-            Your address is too short!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              address?.hasError('maxlength') &&
-              !address?.hasError('minlength') &&
-              address?.touched
-            "
-          >
-            Your address is too long!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              address?.hasError('pattern') &&
-              !address?.hasError('maxlength') &&
-              !address?.hasError('minlength') &&
-              address?.touched
-            "
-          >
-            Your address cannot have special characters or numbers!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              address?.invalid &&
-              !address?.hasError('pattern') &&
-              !address?.hasError('minlength') &&
-              !address?.hasError('maxlength') &&
-              address?.touched
-            "
-          >
-            Enter your address like the example!
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field>
-          <mat-label>City:</mat-label>
-          <input
-            matInput
-            placeholder="ex: Belfast"
-            formControlName="city"
-            type="text"
-          />
-          <mat-hint>Enter your city!</mat-hint>
-          <mat-error *ngIf="city?.hasError('minlength') && city?.touched">
-            Your city is too short!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              city?.hasError('maxlength') &&
-              !city?.hasError('minlength') &&
-              city?.touched
-            "
-          >
-            Your city is too long!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              city?.hasError('pattern') &&
-              !city?.hasError('maxlength') &&
-              !city?.hasError('minlength') &&
-              city?.touched
-            "
-          >
-            Your city cannot have special characters, spaces or numbers!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              city?.invalid &&
-              !city?.hasError('pattern') &&
-              !city?.hasError('minlength') &&
-              !city?.hasError('maxlength') &&
-              city?.touched
-            "
-          >
-            Enter your city like the example!
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field>
-          <mat-label>County:</mat-label>
-          <input
-            matInput
-            placeholder="ex: Down"
-            formControlName="county"
-            type="text"
-          />
-          <mat-hint>Enter your county!</mat-hint>
-          <mat-error *ngIf="county?.hasError('minlength') && county?.touched">
-            Your county is too short!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              county?.hasError('maxlength') &&
-              !county?.hasError('minlength') &&
-              county?.touched
-            "
-          >
-            Your county is too long!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              county?.hasError('pattern') &&
-              !county?.hasError('maxlength') &&
-              !county?.hasError('minlength') &&
-              county?.touched
-            "
-          >
-            Your county cannot have special characters, spaces or numbers!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              county?.invalid &&
-              !county?.hasError('pattern') &&
-              !county?.hasError('minlength') &&
-              !county?.hasError('maxlength') &&
-              county?.touched
-            "
-          >
-            Enter your county like the example!
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field>
-          <mat-label>Postcode:</mat-label>
-          <input
-            matInput
-            placeholder="ex: BT57LQ"
-            formControlName="postCode"
-            input="text"
-          />
-          <mat-hint>Enter your postcode!</mat-hint>
-          <mat-error *ngIf="postCode?.hasError('minlength') && postCode?.touched">
-            Your post code is too short!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              postCode?.hasError('maxlength') &&
-              !postCode?.hasError('minlength') &&
-              postCode?.touched
-            "
-          >
-            Your post code is too long!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              postCode?.hasError('pattern') &&
-              !postCode?.hasError('maxlength') &&
-              !postCode?.hasError('minlength') &&
-              postCode?.touched
-            "
-          >
-            Your post code cannot have special characters, spaces or numbers!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              postCode?.invalid &&
-              !postCode?.hasError('pattern') &&
-              !postCode?.hasError('minlength') &&
-              !postCode?.hasError('maxlength') &&
-              postCode?.touched
-            "
-          >
-            Enter your post code like the example!
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <h3>Contact:</h3>
-      <div>
-        <mat-form-field>
-          <mat-label>Phone Number:</mat-label>
-          <input
-            matInput
-            placeholder="ex: 07774414323"
-            formControlName="phoneNumber"
-            input="number"
-          />
-          <mat-hint>Enter your phone number!</mat-hint>
-          <mat-error
-            *ngIf="phoneNumber?.hasError('minlength') && phoneNumber?.touched"
-          >
-            Your phone number is too short!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              phoneNumber?.hasError('maxlength') &&
-              !phoneNumber?.hasError('minlength') &&
-              phoneNumber?.touched
-            "
-          >
-            Your phone number is too long!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              phoneNumber?.hasError('pattern') &&
-              !phoneNumber?.hasError('maxlength') &&
-              !phoneNumber?.hasError('minlength') &&
-              phoneNumber?.touched
-            "
-          >
-            Your phone number cannot have special characters, spaces or numbers!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              phoneNumber?.invalid &&
-              !phoneNumber?.hasError('pattern') &&
-              !phoneNumber?.hasError('minlength') &&
-              !phoneNumber?.hasError('maxlength') &&
-              phoneNumber?.touched
-            "
-          >
-            Enter your phone number like the example!
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field>
-          <mat-label>Email:</mat-label>
-          <input
-            matInput
-            placeholder="ex: john@icloud.com"
-            formControlName="email"
-            type="email"
-          />
-          <mat-hint>Enter your email!</mat-hint>
-          <mat-error *ngIf="email?.hasError('minlength') && email?.touched">
-            Your email is too short!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              email?.hasError('maxlength') &&
-              !email?.hasError('minlength') &&
-              email?.touched
-            "
-          >
-            Your email is too long!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              email?.hasError('pattern') &&
-              !email?.hasError('maxlength') &&
-              !email?.hasError('minlength') &&
-              email?.touched
-            "
-          >
-            Your email cannot have special characters, spaces or numbers!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              email?.invalid &&
-              !email?.hasError('pattern') &&
-              !email?.hasError('minlength') &&
-              !email?.hasError('maxlength') &&
-              email?.touched
-            "
-          >
-            Enter your email like the example!
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <h3>Password:</h3>
-      <div>
-        <mat-form-field>
-          <mat-label>Password:</mat-label>
-          <input
-            matInput
-            placeholder="ex: Apples123"
-            formControlName="password"
-            input="text"
-          />
-          <mat-hint>Enter your password!</mat-hint>
-          <mat-error *ngIf="password?.hasError('minlength') && password?.touched">
-            Your password is too short!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              password?.hasError('maxlength') &&
-              !password?.hasError('minlength') &&
-              password?.touched
-            "
-          >
-            Your password is too long!
-          </mat-error>
-          <mat-error
-            *ngIf="
-              password?.invalid &&
-              !password?.hasError('minlength') &&
-              !password?.hasError('maxlength') &&
-              password?.touched
-            "
-          >
-            Enter your password like the example!
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field>
-          <mat-label>Confirm Password:</mat-label>
-          <input
-            matInput
-            placeholder="ex: Apples123"
-            formControlName="confirmPassword"
-            input="text"
-          />
-          <mat-hint>Confirm your password!</mat-hint>
-          <mat-error *ngIf="confirmPassword?.invalid && confirmPassword?.touched">
-            Your passwords don't match!
-          </mat-error>
-        </mat-form-field>
-      </div>
-  
-      <div>
-        <p>Complete the form to enable button.</p>
-        <button mat-raised-button type="submit" [disabled]="!registerForm.valid">
-          Create Account
-        </button>
-      </div>
-    </form>
-  </div>
+  <h2>Register!</h2>
+  <form [formGroup]="registerForm" (submit)="registerSubmit()">
+    <h3>Name:</h3>
+    <div>
+      <mat-form-field>
+        <mat-label>First Name:</mat-label>
+        <input
+          matInput
+          placeholder="ex: John"
+          formControlName="firstName"
+          type="text"
+        />
+        <mat-hint>Enter your first name!</mat-hint>
+        <mat-error
+          *ngIf="firstName?.hasError('minlength') && firstName?.touched"
+        >
+          Your name is too short!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            firstName?.hasError('maxlength') &&
+            !firstName?.hasError('minlength') &&
+            firstName?.touched
+          "
+        >
+          Your name is too long!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            firstName?.hasError('pattern') &&
+            !firstName?.hasError('maxlength') &&
+            !firstName?.hasError('minlength') &&
+            firstName?.touched
+          "
+        >
+          Your name cannot have special characters or numbers!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            firstName?.invalid &&
+            !firstName?.hasError('pattern') &&
+            !firstName?.hasError('minlength') &&
+            !firstName?.hasError('maxlength') &&
+            firstName?.touched
+          "
+        >
+          Enter your first name like the example!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Last Name:</mat-label>
+        <input
+          matInput
+          placeholder="ex: Doe"
+          formControlName="lastName"
+          type="text"
+        />
+        <mat-hint>Enter your last name!</mat-hint>
+        <mat-error *ngIf="lastName?.hasError('minlength') && lastName?.touched">
+          Your name is too short!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            lastName?.hasError('maxlength') &&
+            !lastName?.hasError('minlength') &&
+            lastName?.touched
+          "
+        >
+          Your name is too long!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            lastName?.hasError('pattern') &&
+            !lastName?.hasError('maxlength') &&
+            !lastName?.hasError('minlength') &&
+            lastName?.touched
+          "
+        >
+          Your name cannot have special characters or numbers!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            lastName?.invalid &&
+            !lastName?.hasError('pattern') &&
+            !lastName?.hasError('minlength') &&
+            !lastName?.hasError('maxlength') &&
+            lastName?.touched
+          "
+        >
+          Enter your last name like the example!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <h3>Address:</h3>
+    <div>
+      <mat-form-field>
+        <mat-label>House Number:</mat-label>
+        <input
+          matInput
+          placeholder="ex: 25"
+          formControlName="houseNumber"
+          input="number"
+        />
+        <mat-hint>Enter your house number!</mat-hint>
+        <mat-error *ngIf="houseNumber?.hasError('min') && houseNumber?.touched">
+          Your house number cannot be negative or zero!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            houseNumber?.hasError('minlength') &&
+            !houseNumber?.hasError('min') &&
+            houseNumber?.touched
+          "
+        >
+          Enter a house number!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            houseNumber?.hasError('maxlength') &&
+            !houseNumber?.hasError('min') &&
+            !houseNumber?.hasError('minlength') &&
+            houseNumber?.touched
+          "
+        >
+          Your house number is too long!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            houseNumber?.hasError('pattern') &&
+            !houseNumber?.hasError('min') &&
+            !houseNumber?.hasError('maxlength') &&
+            !houseNumber?.hasError('minlength') &&
+            houseNumber?.touched
+          "
+        >
+          Your house number cannot have special characters, spaces or letters!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            houseNumber?.invalid &&
+            !houseNumber?.hasError('min') &&
+            !houseNumber?.hasError('pattern') &&
+            !houseNumber?.hasError('minlength') &&
+            !houseNumber?.hasError('maxlength') &&
+            houseNumber?.touched
+          "
+        >
+          Enter your house number like the example!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Address:</mat-label>
+        <input
+          matInput
+          placeholder="ex: Main Street"
+          formControlName="address"
+          type="text"
+        />
+        <mat-hint>Enter your address!</mat-hint>
+        <mat-error *ngIf="address?.hasError('minlength') && address?.touched">
+          Your address is too short!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            address?.hasError('maxlength') &&
+            !address?.hasError('minlength') &&
+            address?.touched
+          "
+        >
+          Your address is too long!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            address?.hasError('pattern') &&
+            !address?.hasError('maxlength') &&
+            !address?.hasError('minlength') &&
+            address?.touched
+          "
+        >
+          Your address cannot have special characters or numbers!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            address?.invalid &&
+            !address?.hasError('pattern') &&
+            !address?.hasError('minlength') &&
+            !address?.hasError('maxlength') &&
+            address?.touched
+          "
+        >
+          Enter your address like the example!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>City:</mat-label>
+        <input
+          matInput
+          placeholder="ex: Belfast"
+          formControlName="city"
+          type="text"
+        />
+        <mat-hint>Enter your city!</mat-hint>
+        <mat-error *ngIf="city?.hasError('minlength') && city?.touched">
+          Your city is too short!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            city?.hasError('maxlength') &&
+            !city?.hasError('minlength') &&
+            city?.touched
+          "
+        >
+          Your city is too long!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            city?.hasError('pattern') &&
+            !city?.hasError('maxlength') &&
+            !city?.hasError('minlength') &&
+            city?.touched
+          "
+        >
+          Your city cannot have special characters, spaces or numbers!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            city?.invalid &&
+            !city?.hasError('pattern') &&
+            !city?.hasError('minlength') &&
+            !city?.hasError('maxlength') &&
+            city?.touched
+          "
+        >
+          Enter your city like the example!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>County:</mat-label>
+        <input
+          matInput
+          placeholder="ex: Down"
+          formControlName="county"
+          type="text"
+        />
+        <mat-hint>Enter your county!</mat-hint>
+        <mat-error *ngIf="county?.hasError('minlength') && county?.touched">
+          Your county is too short!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            county?.hasError('maxlength') &&
+            !county?.hasError('minlength') &&
+            county?.touched
+          "
+        >
+          Your county is too long!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            county?.hasError('pattern') &&
+            !county?.hasError('maxlength') &&
+            !county?.hasError('minlength') &&
+            county?.touched
+          "
+        >
+          Your county cannot have special characters, spaces or numbers!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            county?.invalid &&
+            !county?.hasError('pattern') &&
+            !county?.hasError('minlength') &&
+            !county?.hasError('maxlength') &&
+            county?.touched
+          "
+        >
+          Enter your county like the example!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Postcode:</mat-label>
+        <input
+          matInput
+          placeholder="ex: BT57LQ"
+          formControlName="postCode"
+          input="text"
+        />
+        <mat-hint>Enter your postcode!</mat-hint>
+        <mat-error *ngIf="postCode?.hasError('minlength') && postCode?.touched">
+          Your post code is too short!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            postCode?.hasError('maxlength') &&
+            !postCode?.hasError('minlength') &&
+            postCode?.touched
+          "
+        >
+          Your post code is too long!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            postCode?.hasError('pattern') &&
+            !postCode?.hasError('maxlength') &&
+            !postCode?.hasError('minlength') &&
+            postCode?.touched
+          "
+        >
+          Your post code cannot have special characters, spaces or numbers!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            postCode?.invalid &&
+            !postCode?.hasError('pattern') &&
+            !postCode?.hasError('minlength') &&
+            !postCode?.hasError('maxlength') &&
+            postCode?.touched
+          "
+        >
+          Enter your post code like the example!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <h3>Contact:</h3>
+    <div>
+      <mat-form-field>
+        <mat-label>Phone Number:</mat-label>
+        <input
+          matInput
+          placeholder="ex: 07774414323"
+          formControlName="phoneNumber"
+          input="number"
+        />
+        <mat-hint>Enter your phone number!</mat-hint>
+        <mat-error
+          *ngIf="phoneNumber?.hasError('minlength') && phoneNumber?.touched"
+        >
+          Your phone number is too short!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            phoneNumber?.hasError('maxlength') &&
+            !phoneNumber?.hasError('minlength') &&
+            phoneNumber?.touched
+          "
+        >
+          Your phone number is too long!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            phoneNumber?.hasError('pattern') &&
+            !phoneNumber?.hasError('maxlength') &&
+            !phoneNumber?.hasError('minlength') &&
+            phoneNumber?.touched
+          "
+        >
+          Your phone number cannot have special characters, spaces or numbers!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            phoneNumber?.invalid &&
+            !phoneNumber?.hasError('pattern') &&
+            !phoneNumber?.hasError('minlength') &&
+            !phoneNumber?.hasError('maxlength') &&
+            phoneNumber?.touched
+          "
+        >
+          Enter your phone number like the example!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Email:</mat-label>
+        <input
+          matInput
+          placeholder="ex: john@icloud.com"
+          formControlName="email"
+          type="email"
+        />
+        <mat-hint>Enter your email!</mat-hint>
+        <mat-error *ngIf="email?.hasError('minlength') && email?.touched">
+          Your email is too short!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            email?.hasError('maxlength') &&
+            !email?.hasError('minlength') &&
+            email?.touched
+          "
+        >
+          Your email is too long!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            email?.hasError('pattern') &&
+            !email?.hasError('maxlength') &&
+            !email?.hasError('minlength') &&
+            email?.touched
+          "
+        >
+          Your email cannot have special characters, spaces or numbers!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            email?.invalid &&
+            !email?.hasError('pattern') &&
+            !email?.hasError('minlength') &&
+            !email?.hasError('maxlength') &&
+            email?.touched
+          "
+        >
+          Enter your email like the example!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <h3>Password:</h3>
+    <div>
+      <mat-form-field>
+        <mat-label>Password:</mat-label>
+        <input
+          matInput
+          placeholder="ex: Apples123"
+          formControlName="password"
+          input="text"
+        />
+        <mat-hint>Enter your password!</mat-hint>
+        <mat-error *ngIf="password?.hasError('minlength') && password?.touched">
+          Your password is too short!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            password?.hasError('maxlength') &&
+            !password?.hasError('minlength') &&
+            password?.touched
+          "
+        >
+          Your password is too long!
+        </mat-error>
+        <mat-error
+          *ngIf="
+            password?.invalid &&
+            !password?.hasError('minlength') &&
+            !password?.hasError('maxlength') &&
+            password?.touched
+          "
+        >
+          Enter your password like the example!
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Confirm Password:</mat-label>
+        <input
+          matInput
+          placeholder="ex: Apples123"
+          formControlName="confirmPassword"
+          input="text"
+        />
+        <mat-hint>Confirm your password!</mat-hint>
+        <mat-error *ngIf="confirmPassword?.invalid && confirmPassword?.touched">
+          Your passwords don't match!
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <p>Complete the form to enable button.</p>
+      <button mat-raised-button type="submit" [disabled]="!registerForm.valid">
+        Create Account
+      </button>
+    </div>
+  </form>
+</div>

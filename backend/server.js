@@ -228,7 +228,7 @@ app.get(API_PATH + "/admin/:accountEmail", authenticateToken, (req, res)=>{
 //   });
 
 //Get Bookings for Admin Calendar
-app.get(API_PATH + "/bookings", (req, res) => {
+app.get(API_PATH + "/bookings", authenticateToken, (req, res) => {
     const qr = `SELECT b.bookingID, b.customerID, b.bookingDate, b.bookingTime, b.bookingType, b.houseNumber, b.address, b.city, b.county, b.postcode, a.firstName, a.lastName, a.email, c.phoneNumber
                 FROM BOOKING b
                 JOIN ACCOUNT a ON b.customerID = a.customerID
@@ -315,7 +315,7 @@ app.get(API_PATH + "/customer/:email", (req, res)=>{
 });*/
 
  // Post a booking into the database.
- app.post(API_PATH +"/booking/", (req, res) => {
+ app.post(API_PATH +"/booking/", authenticateToken, (req, res) => {
 
     //let email = req.params.email;
      let customerID = '1';
@@ -341,7 +341,7 @@ app.get(API_PATH + "/customer/:email", (req, res)=>{
      });
  });
 
- app.get(API_PATH + "/account/:email", (req, res) => {
+ app.get(API_PATH + "/account/:email", authenticateToken, (req, res) => {
     let email = req.params.email;
     let qr = `SELECT customerID FROM ACCOUNT WHERE email = ?`;
   
@@ -377,7 +377,7 @@ app.get(API_PATH + "/customer/:email", (req, res)=>{
   });
   
   //* user account modify endpoint
-app.put(API_PATH + "/account/:email", (req, res) => {
+app.put(API_PATH + "/account/:email", authenticateToken, (req, res) => {
     let email = req.params.email;
     
     let houseNumber = req.body.houseNumber;
@@ -438,15 +438,6 @@ app.put(API_PATH + "/account/:email", (req, res) => {
 //   });
   
 
-//! LOGOUT SHOULD BE HANDLED IN THE FRONTEND AS JWT IS A CLIENTSIDE TOKEN!
-//! EXAMPLE ANGULAR CODE MAKE A BUTTON WITH A FUNCTION CALLED LOGOUT WHICH RUNS ON SUBMIT
-//! <button (click)="Logout()"> Logout! </button>
-//! Logout(){
-//!     localStorage.removeItem("token");
-//!     this.router.navigate(['/Home']);
-//! }
-
-
 //? =======================================================================================================================
 //* Middleware function
 function authenticateToken(req, res, next) {
@@ -464,21 +455,6 @@ function authenticateToken(req, res, next) {
 }
 
 //? =======================================================================================================================
-// // THREE FILES: 
-// // Controller (api endpoints) eg app.post("/login", frontend sends request to backend via /login endpoint then sends to service layer 
-// app.post("/login", (req, res)=>{
-//     console.log(req.body, "Create data...");
-
-//     let userName = req.body.userName;
-//     let Password = req.body.Password;
-    
-//     //! send to service layer 
-//     //compare Username and Password to db_username and db_password
-//     //send a response back based on the comparasion
-// });
-// // Service Layer (validation) backend valiidation eg checks only one email per account
-
-// // Repositiory Layer direct DB access 
 
 //? =======================================================================================================================
 
