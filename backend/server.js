@@ -408,7 +408,7 @@ const bookingConfirmationTemplate = "d-3bfa744c86434182826cf9fd863bb390"
 const newBookingInfoTemplate = "d-4c925f4a933244dfbcc04f44c5bd4825"
 const appointmentReminderTemplate = "d-add98d1de317464197279369fc9c3216"
 const accountRegistrationTemplate = "d-869c131e0be54097b6a39b3cc70da668"
-const admin_email = "prestigeboiler1234@gmail.com"
+const admin_email = "prestigeboilers@btconnect.com"
 
 function sendEmail(recipent, template, template_data) { //Send an email
     // const sgMail = require('@sendgrid/mail')
