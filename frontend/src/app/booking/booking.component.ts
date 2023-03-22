@@ -54,8 +54,7 @@ export class BookingComponent {
     { value: '17:00:00', viewValue: '5 PM' },
   ];
 
-  constructor(private http: HttpClient, private router: Router, private formbuilder: FormBuilder, private emailService: EmailServiceComponent) {
-
+  constructor(private http: HttpClient, private router: Router, private formbuilder: FormBuilder) {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
     const currentDay = new Date().getDate();
@@ -171,31 +170,6 @@ export class BookingComponent {
       console.log("Booking Submitted");
       alert("Success! Thank you for booking with us! Your booking is scheduled for " + data.formattedDate + " at " + data.bookingTime + ".");
       console.log(data);
-
-      const token = localStorage.getItem('token') as string;
-      const decodedtoken  = jwt_decode(token) as any;
-      const email = decodedtoken.email;
-      const email_data = {
-        "Recipient": email,
-        "Date": this.bookingDate?.value as string,
-        "Time": this.bookingTime?.value as string,
-        "Address": this.address?.value,
-        "HouseNo": this.houseNumber?.value as string,
-        "County": this.county?.value as string,
-        "City": this.city?.value as string,
-        "PostCode": this.postCode?.value as string
-      }
-      this.emailService.sendBookingConfirmation(
-        email_data["Recipient"], 
-        email_data["Date"], 
-        email_data["Time"], 
-        email_data["Address"], 
-        email_data["HouseNo"], 
-        email_data["County"], 
-        email_data["City"], 
-        email_data["PostCode"]
-        );
-
     }, 
     error => {
       console.error(error);
