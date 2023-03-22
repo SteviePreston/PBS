@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { AdminComponent } from '../admin/admin.component';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { AuthUserService } from '../auth-user.service';
 
 @Component({
@@ -49,6 +49,11 @@ export class HeaderComponent {
   }
   
   headerLogout() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd && event.url === '/login') {
+        window.location.reload();
+      }
+    });
     this.headerReload();
     this.authService.logout();
   }
