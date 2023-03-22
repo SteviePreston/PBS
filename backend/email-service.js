@@ -1,15 +1,12 @@
-const bookingConfirmationTemplate = "d-3bfa744c86434182826cf9fd863bb390"
-const newBookingInfoTemplate = "d-4c925f4a933244dfbcc04f44c5bd4825"
-const appointmentReminderTemplate = "d-add98d1de317464197279369fc9c3216"
-const accountRegistrationTemplate = "d-869c131e0be54097b6a39b3cc70da668"
 const sender = "prestigeboiler1234@gmail.com"
-const admin_email = sender
 const APIkey = "insert_key"
 
 const express = require('express');
-const router = express.Router();
+const app = express.Router();
+API_VERSION = "/v1";
+API_PATH = API_VERSION + "/api";
 
-router.post('/send-email', (req, res) => {
+app.post(API_PATH + '/send-email', (req, res) => {
   const { recipient, template, template_data } = req.body;
   sgMail.setApiKey(APIkey);
   const msg = {
@@ -25,7 +22,7 @@ router.post('/send-email', (req, res) => {
     res.status(500).send('Error sending email');
   });
 });
-router.post('/schedule-email', (req, res) => {
+app.post(API_PATH + '/schedule-email', (req, res) => {
     const { recipient, template, template_data, date } = req.body;
     sgMail.setApiKey(APIkey);
     const msg = {
@@ -44,4 +41,4 @@ router.post('/schedule-email', (req, res) => {
   });
   
 
-module.exports = router;
+module.exports = app;
