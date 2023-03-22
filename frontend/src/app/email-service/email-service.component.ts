@@ -1,17 +1,19 @@
 import { Component } from '@angular/core';
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
+
 @Component({
   selector: 'app-email-service',
   templateUrl: './email-service.component.html',
   styleUrls: ['./email-service.component.css']
 })
-
 export class EmailServiceComponent {
+
   constructor(private http: HttpClient) { }
   private readonly bookingConfirmationTemplate = "d-3bfa744c86434182826cf9fd863bb390"
   private readonly newBookingInfoTemplate = "d-4c925f4a933244dfbcc04f44c5bd4825"
@@ -53,3 +55,4 @@ export class EmailServiceComponent {
     this.setAppointmentReminder(recipient, date, templateData); // Sets the email reminder
 }
 }
+

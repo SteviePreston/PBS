@@ -31,6 +31,7 @@ import { BookingComponent } from './booking/booking.component';
 import { EmailServiceComponent } from './email-service/email-service.component';
 import { AccountModificationComponent } from './account-modification/account-modification.component';
 import { HomeComponent } from './home/home.component';
+import { MyModalComponent } from './my-modal/my-modal.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { HomeComponent } from './home/home.component';
     EmailServiceComponent,
     AccountModificationComponent,
     HomeComponent,
+    MyModalComponent,
   ],
   imports: [
     BrowserModule,

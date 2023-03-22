@@ -6,8 +6,9 @@ import { NavigationEnd, Router } from '@angular/router';
 import { BookingService } from '../bookings.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthUserService } from '../auth-user.service';
+import { MyModalComponent } from '../my-modal/my-modal.component';
 
-import * as FullCalendar from '@fullcalendar/core'; // import the FullCalendar library
+import * as FullCalendar from '@fullcalendar/core';
 
 @Component({
   selector: 'app-calendar',
@@ -20,16 +21,43 @@ export class CalendarComponent implements OnInit {
     events: [],
     plugins: [dayGridPlugin],
     timeZone: 'UTC',
-   eventClick: (info) => {
-    const { extendedProps } = info.event;
-   let message="";
-    if (extendedProps) {
-      Object.keys(extendedProps).forEach(key => {
-        message += `\n${key}: ${extendedProps[key]}`;
+    eventClick: (info) => {
+      const { extendedProps } = info.event;
+      const bookingID = extendedProps['bookingID'];
+      const customerID = extendedProps['customerID'];
+      const bookingDate = extendedProps['bookingDate'];
+      const bookingTime = extendedProps['bookingTime'];
+      const bookingType = extendedProps['bookingType'];
+      const houseNumber = extendedProps['houseNumber'];
+      const address = extendedProps['address'];
+      const city = extendedProps['city'];
+      const county = extendedProps['county'];
+      const postcode = extendedProps['postcode'];
+      const firstName = extendedProps['firstName'];
+      const lastName = extendedProps['lastName'];
+      const email = extendedProps['email'];
+      const phoneNumber = extendedProps['phoneNumber'];
+    
+      const dialogRef = this.dialog.open(MyModalComponent, {
+        width: '90%',
+        data: {
+          bookingID,
+          customerID,
+          bookingDate,
+          bookingTime,
+          bookingType,
+          houseNumber,
+          address,
+          city,
+          county,
+          postcode,
+          firstName,
+          lastName,
+          email,
+          phoneNumber,
+        },
       });
-    }
-    alert(message);
-  }
+    },
   };
 
   @ViewChild('calendar') calendarComponent!: ElementRef;
@@ -40,19 +68,19 @@ export class CalendarComponent implements OnInit {
     public authService: AuthUserService,
     private router: Router,
     private bookingService: BookingService,
-    private dialog: MatDialog
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
     console.log('creating calendar options');
     this.bookingService.getBookingsForCalendar().subscribe(
-      events => {
+      (events) => {
         this.calendarOptions.events = events;
         console.log(this.calendarOptions.events);
         console.log('got events');
         this.createCalendar();
       },
-      error => {
+      (error) => {
         console.error('Error fetching bookings', error);
       }
     );
@@ -69,7 +97,5 @@ export class CalendarComponent implements OnInit {
       calendar.render();
     }
   }
-
-
-
 }
+

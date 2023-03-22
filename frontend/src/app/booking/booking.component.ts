@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { EmailServiceComponent } from '../email-service/email-service.component';
 
 import jwt_decode from 'jwt-decode';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
@@ -56,6 +55,7 @@ export class BookingComponent {
   ];
 
   constructor(private http: HttpClient, private router: Router, private formbuilder: FormBuilder, private emailService: EmailServiceComponent) {
+
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
     const currentDay = new Date().getDate();
@@ -171,6 +171,7 @@ export class BookingComponent {
       console.log("Booking Submitted");
       alert("Success! Thank you for booking with us! Your booking is scheduled for " + data.formattedDate + " at " + data.bookingTime + ".");
       console.log(data);
+
       const token = localStorage.getItem('token') as string;
       const decodedtoken  = jwt_decode(token) as any;
       const email = decodedtoken.email;
@@ -194,6 +195,7 @@ export class BookingComponent {
         email_data["City"], 
         email_data["PostCode"]
         );
+
     }, 
     error => {
       console.error(error);
