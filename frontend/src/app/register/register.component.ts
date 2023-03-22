@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { EmailServiceComponent } from '../email-service/email-service.component';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +14,7 @@ export class RegisterComponent implements OnInit{
 
   registerForm!: FormGroup;
 
-  constructor(private http: HttpClient, private router: Router, private formbuilder: FormBuilder, private emailServiceComponent: EmailServiceComponent) {}
+  constructor(private http: HttpClient, private router: Router, private formbuilder: FormBuilder) {}
 
   ngOnInit() {
 
@@ -153,11 +152,6 @@ export class RegisterComponent implements OnInit{
       console.log(response);
       console.log("User Registered!");
       alert("Success! Thank you for registering!");
-      const email_data = {
-        "Recipent": this.email?.value as string,
-        "Name": this.firstName?.value as string
-      }
-      this.emailServiceComponent.sendAccountRegistration(email_data["Recipent"], email_data["Name"]);
       // Handle success
       //this.router.navigate(['/login']);
     }, 
