@@ -55,7 +55,7 @@ export class BookingComponent {
     { value: '17:00:00', viewValue: '5 PM' },
   ];
 
-  constructor(private http: HttpClient, private router: Router, private formbuilder: FormBuilder, private emailServiceComponent: EmailServiceComponent) {
+  constructor(private http: HttpClient, private router: Router, private formbuilder: FormBuilder, private emailService: EmailServiceComponent) {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
     const currentDay = new Date().getDate();
@@ -184,7 +184,7 @@ export class BookingComponent {
         "City": this.city?.value as string,
         "PostCode": this.postCode?.value as string
       }
-      this.emailServiceComponent.sendBookingConfirmation(
+      this.emailService.sendBookingConfirmation(
         email_data["Recipient"], 
         email_data["Date"], 
         email_data["Time"], 

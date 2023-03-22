@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import * as sgMail from '@sendgrid/mail';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root'
+})
 @Component({
   selector: 'app-email-service',
   templateUrl: './email-service.component.html',
@@ -7,51 +12,18 @@ import * as sgMail from '@sendgrid/mail';
 })
 
 export class EmailServiceComponent {
-  private readonly bookingConfirmationTemplate = "d-0c68d980e8c4475a926f0dc21fc065c6";
-  private readonly newBookingInfoTemplate = "d-b718c07708524e0e876c413cf043e56f";
-  private readonly appointmentReminderTemplate = "d-54af7506d66a47399a35912e8dfb41a7";
-  private readonly accountRegistrationTemplate = "d-985619ba6b0a4a7f8a0c53a865ace6e7";
-  private readonly sender = "prestigeboilerservice@outlook.com";
-  private readonly admin_email = this.sender;
-  private readonly APIkey = "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";
+  constructor(private http: HttpClient) { }
+  private readonly bookingConfirmationTemplate = "d-3bfa744c86434182826cf9fd863bb390"
+  private readonly newBookingInfoTemplate = "d-4c925f4a933244dfbcc04f44c5bd4825"
+  private readonly appointmentReminderTemplate = "d-add98d1de317464197279369fc9c3216"
+  private readonly accountRegistrationTemplate = "d-869c131e0be54097b6a39b3cc70da668"
+  private readonly admin_email = "prestigeboiler1234@gmail.com"
 
-  constructor() { 
-    sgMail.setApiKey(this.APIkey);
+  sendEmail(recipient: string, template: string, template_data: object) {
+    return this.http.post('/api/send-email', { recipient, template, template_data });
   }
-
-  sendEmail(recipient: string, template: string, templateData: object): void {
-    const msg = {
-      templateId: template,
-      to: recipient,
-      from: this.sender,
-      dynamic_template_data: templateData,
-    }
-    sgMail
-      .send(msg)
-      .then(() => {
-        console.log('Email sent')
-      })
-      .catch((error) => {
-        console.error(error)
-      })
-  }
-  
-  sendEmailAt(recipient: string, template: string, templateData: object, date: number): void {
-    const msg = {
-      templateId: template,
-      to: recipient,
-      from: this.sender,
-      send_at: date,
-      dynamic_template_data: templateData,
-    }
-    sgMail
-      .send(msg)
-      .then(() => {
-        console.log('Email sent')
-      })
-      .catch((error) => {
-        console.error(error)
-      })
+  scheduleEmail(recipient: string, template: string, template_data: object, date: number) {
+    return this.http.post('/api/schedule-email', { recipient, template, template_data, date });
   }
 
   sendAccountRegistration(recipient: string, name: string): void {
@@ -63,7 +35,7 @@ export class EmailServiceComponent {
   
   setAppointmentReminder(recipient: string, date: string, templateData: object): void {
     const unixTimestamp = Math.floor(new Date(date + " " + "08:00:00.000").getTime() / 1000);
-    this.sendEmailAt(recipient, this.appointmentReminderTemplate, templateData, unixTimestamp);
+    this.scheduleEmail(recipient, this.appointmentReminderTemplate, templateData, unixTimestamp);
   }
 
   sendBookingConfirmation(recipient: string, date: string, time: string, address: string, houseNo: string, county: string, city: string, postCode: string): void {
