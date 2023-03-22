@@ -411,7 +411,7 @@ const accountRegistrationTemplate = "d-869c131e0be54097b6a39b3cc70da668"
 const admin_email = "prestigeboiler1234@gmail.com"
 
 function sendEmail(recipent, template, template_data) { //Send an email
-    const sgMail = require('@sendgrid/mail')
+    // const sgMail = require('@sendgrid/mail')
     templateID = template
     sgMail.setApiKey(process.env.SEND_GRID_API)
     const msg = {
@@ -431,7 +431,7 @@ function sendEmail(recipent, template, template_data) { //Send an email
   }
   
  function sendEmailAt(email, template, template_data, date) { //Schedule an email
-    const sgMail = require('@sendgrid/mail')
+    // const sgMail = require('@sendgrid/mail')
     templateID = template
     sgMail.setApiKey(process.env.SEND_GRID_API)
     const msg = {
