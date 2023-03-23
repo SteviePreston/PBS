@@ -2,10 +2,10 @@ const express = require("express");
 const bodyparser = require("body-parser");
 const cors = require("cors");
 const mysql = require("mysql2");
+const bcrypt = require("bcrypt"); //! check if it needed at the end
 const crypto = require("crypto");
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
-const sgMail = require('@sendgrid/mail');
 
 //? =======================================================================================================================
 
@@ -129,7 +129,7 @@ app.post(API_PATH +"/register", (req, res) => {
             res.status(500).json({message: 'Internal Server Error'});
         } else {
             if (result[0].count > 0) {
-                res.status(401).json({message: 'Email already in use, please login or sign up using a different email!'});
+                res.status(401).json({message: 'Email already in use'});
             } else {
                 db.query(insertCustomerQuery, [houseNumber, address, city, county, postCode, phoneNumber], (err, result) => {
                     if (err) {
@@ -145,7 +145,6 @@ app.post(API_PATH +"/register", (req, res) => {
                                     res.status(500).json({message: 'Internal Server Error'});
                                 } else {
                                     res.status(201).json({message: 'Registration successful'});
-                                    sendRegistrationEmail(email,firstName)
                                     
                                 }
                             });
@@ -315,34 +314,44 @@ app.get(API_PATH + "/customer/:email", (req, res)=>{
 
 });*/
 
- // Post a booking into the database.
- app.post(API_PATH +"/booking/", authenticateToken, (req, res) => {
-
-    //let email = req.params.email;
-     let customerID = '1';
-
-     let bookingDate = req.body.formattedDate;
-     let bookingTime = req.body.bookingTime;
-     let bookingType = req.body.bookingType;
-     let houseNumber = req.body.houseNumber;
-     let address = req.body.address;
-     let city = req.body.city;
-     let county = req.body.county;
-     let postCode = req.body.postCode;
-     let email = req.body.email;
-
-     let qr = `INSERT INTO BOOKING (customerID, bookingDate, bookingTime, bookingType, houseNumber, address, city, county, postCode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-
-     db.query(qr, [customerID, bookingDate, bookingTime, bookingType, houseNumber, address, city, county, postCode], (err, result) => {
-       if (err) {
-         console.log(err);
-         res.status(500).send("Error inserting record");
-       } else {
-        res.status(200).json({ success: true, message : "Record inserted successfully"});
-        sendBookingConfirmation(email,bookingDate,bookingTime,address,houseNumber,county,city,postCode)
-       }
-     });
- });
+app.post(API_PATH + "/booking/", authenticateToken, (req, res) => {
+    let email = req.body.email;
+  
+    // Get the customer ID associated with the email
+    let qr = `SELECT customerID FROM ACCOUNT WHERE email = ?`;
+  
+    db.query(qr, [email], (err, result) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send("Error retrieving customer ID");
+      } else if (result.length === 0) {
+        console.log("No customer found with email:", email);
+        res.status(500).send("Error retrieving customer ID");
+      } else {
+        let customerID = result[0].customerID;
+        let bookingDate = req.body.formattedDate;
+        let bookingTime = req.body.bookingTime;
+        let bookingType = req.body.bookingType;
+        let houseNumber = req.body.houseNumber;
+        let address = req.body.address;
+        let city = req.body.city;
+        let county = req.body.county;
+        let postCode = req.body.postCode;
+  
+        let qr = `INSERT INTO BOOKING (customerID, bookingDate, bookingTime, bookingType, houseNumber, address, city, county, postCode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  
+        db.query(qr, [customerID, bookingDate, bookingTime, bookingType, houseNumber, address, city, county, postCode], (err, result) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send("Error inserting record");
+          } else {
+            res.status(200).json({ success: true, message: "Record inserted successfully" });
+          }
+        });
+      }
+    });
+  });
+  
 
  app.get(API_PATH + "/account/:email", authenticateToken, (req, res) => {
     let email = req.params.email;
@@ -402,84 +411,6 @@ app.put(API_PATH + "/account/:email", authenticateToken, (req, res) => {
     });
 });
 
-//* Email service endpoint
-const bookingConfirmationTemplate = "d-3bfa744c86434182826cf9fd863bb390"
-const newBookingInfoTemplate = "d-4c925f4a933244dfbcc04f44c5bd4825"
-const appointmentReminderTemplate = "d-add98d1de317464197279369fc9c3216"
-const accountRegistrationTemplate = "d-869c131e0be54097b6a39b3cc70da668"
-const admin_email = "prestigeboilers@btconnect.com"
-
-function sendEmail(recipent, template, template_data) { //Send an email
-    // const sgMail = require('@sendgrid/mail')
-    templateID = template
-    sgMail.setApiKey(process.env.SEND_GRID_API)
-    const msg = {
-      templateId: templateID,
-      to: recipent,
-      from: admin_email,
-      dynamic_template_data: template_data,
-    }
-    sgMail
-      .send(msg)
-      .then(() => {
-        console.log('Email sent')
-      })
-      .catch((error) => {
-        console.error(error)
-      })
-  }
-  
- function sendEmailAt(email, template, template_data, date) { //Schedule an email
-    // const sgMail = require('@sendgrid/mail')
-    templateID = template
-    sgMail.setApiKey(process.env.SEND_GRID_API)
-    const msg = {
-      templateId: templateID,
-      to: email,
-      from: admin_email,
-      send_at: date,
-      dynamic_template_data: template_data,
-    }
-    sgMail
-      .send(msg)
-      .then(() => {
-        console.log('Email sent')
-      })
-      .catch((error) => {
-        console.error(error)
-      })
-  }
-  
-  
-  function sendRegistrationEmail(email, name) { //Send registration confirmation
-    template_data = {
-      "Name": name,
-    }
-  
-    sendEmail(email, accountRegistrationTemplate, template_data)
-  }
-  
-  function setAppointmentReminder(email, date, template_data) { //Sets appointment reminder to send at 8:00 AM on the day of appointment
-    let formatDate = date.slice(0, 4) + "-"  + date.slice(4, 6) + "-" + date.slice(6, 8)
-    let unixTimestamp = Math.floor(new Date(formatDate + " " + "08:00:00.000").getTime() / 1000);
-    sendEmailAt(email, appointmentReminderTemplate, template_data, unixTimestamp)
-  }
-  
-  function sendBookingConfirmation(email, date, time, address, houseNo, county, city, postCode) { //Sends to booking confirmation and schedules appointment reminder
-    template_data = {
-      "Date": date.slice(0, 4) + "-"  + date.slice(4, 6) + "-" + date.slice(6, 8),
-      "Time": time,
-      "City": city,
-      "Address": address,
-      "HouseNo": houseNo,
-      "County": county,
-      "City": city,
-      "PostCode": postCode,
-    }
-    sendEmail(email, bookingConfirmationTemplate, template_data) // Sends email to the user
-    sendEmail(admin_email, newBookingInfoTemplate, template_data) // Send info about new booking to the admin
-    setAppointmentReminder(email, date, template_data) // Sets the email reminder
-  }
  
  /*
  //endpoint to get available booking times for a given date

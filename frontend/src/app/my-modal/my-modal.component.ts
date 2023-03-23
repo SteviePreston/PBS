@@ -125,7 +125,7 @@ export class MyModalComponent {
     const address = `${this.data.houseNumber} ${this.data.address}, ${this.data.city}, ${this.data.county} ${this.data.postcode}`;
     const mapUrl = `https://www.google.com/maps/embed/v1/place?q=${encodeURIComponent(
       address
-    )}&key=AIzaSyAqtSqjvVuBp9ll1B4Jwa412K4sv27wsGk`;
+    )}&key=REPLACE_WITH_API_KEY`;
     this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(mapUrl);
   }
 }
