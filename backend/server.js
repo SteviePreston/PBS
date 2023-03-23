@@ -2,7 +2,6 @@ const express = require("express");
 const bodyparser = require("body-parser");
 const cors = require("cors");
 const mysql = require("mysql2");
-//const bcrypt = require("bcrypt"); //! check if it needed at the end
 const crypto = require("crypto");
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
