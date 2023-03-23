@@ -130,7 +130,7 @@ app.post(API_PATH +"/register", (req, res) => {
             res.status(500).json({message: 'Internal Server Error'});
         } else {
             if (result[0].count > 0) {
-                res.status(401).json({message: 'Email already in use'});
+                res.status(401).json({message: 'Email already in use, please login or sign up using a different email!'});
             } else {
                 db.query(insertCustomerQuery, [houseNumber, address, city, county, postCode, phoneNumber], (err, result) => {
                     if (err) {

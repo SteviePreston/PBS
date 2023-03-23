@@ -158,9 +158,9 @@ export class RegisterComponent implements OnInit{
     error => {
       console.error(error);
       // Handle error
-
+      alert(error.error.message);
       //TODO: Something went wrong => console.alert("Something went wrong try again!");
-      alert("Something Went Wrong, Please try again.");
+      // alert("Something Went Wrong, Please try again.");
     });
   }
 }
