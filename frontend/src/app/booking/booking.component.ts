@@ -164,7 +164,7 @@ export class BookingComponent {
     const token = localStorage.getItem('token') as string;
     const decoded = jwt_decode(token) as any;
     const email = decoded.email;
-    //data.email = email
+    data.email = email
     //get customer id 
     //data.customerID = this.getCustomerID();
 
