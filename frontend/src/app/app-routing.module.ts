@@ -12,7 +12,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorService } from './auth-interceptor.service';
 import { HeaderComponent } from './header/header.component';
 
-
+//* protecting Routes using the impmented AuthGuardService and HTTP Interceptor Service
 const routes: Routes = [
   { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuardService]},
   { path: 'booking', component: BookingComponent, canActivate: [AuthGuardService]},

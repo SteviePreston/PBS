@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit{
 
   ngOnInit(){
 
+    //* Validates and sanitises the input data using email, min and max length validatiors
     this.loginForm = this.formbuilder.group({
         email: ['', [
           Validators.required,
@@ -56,6 +57,7 @@ export class LoginComponent implements OnInit{
   }
 
 
+  //* Sends the login form data to the api endpoint in server.js, handles the error and success
   loginSubmit() {
     const data = this.loginForm.value;
     this.http.post<LoginResponse>('http://localhost:3000/v1/api/login', data).subscribe(

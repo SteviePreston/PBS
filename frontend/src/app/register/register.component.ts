@@ -18,6 +18,7 @@ export class RegisterComponent implements OnInit{
 
   ngOnInit() {
 
+    //* Validates and sanitises the input data using email, regex, min and max length validatiors
     this.registerForm = this.formbuilder.group({
       firstName: ['', [
         Validators.required,
@@ -86,6 +87,7 @@ export class RegisterComponent implements OnInit{
   }, { validator: RegisterComponent.passwordMatchValidator })
   }
 
+  //* Custom validator which check if the password and confirm password values are the same
   static passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const password = control.get('password');
     const confirmPassword = control.get('confirmPassword');
@@ -146,6 +148,7 @@ export class RegisterComponent implements OnInit{
     return this.registerForm.get('confirmPassword');
   }
 
+  //* Sends the register form data to the api endpoint in server.js, handles the error and success
   registerSubmit() {
     const data = this.registerForm.value;
     this.http.post('http://localhost:3000/v1/api/register', data).subscribe(response => {

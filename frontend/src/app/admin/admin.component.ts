@@ -13,6 +13,7 @@ export class AdminComponent {
   userIsAdmin = false;
   constructor(private http: HttpClient, private router: Router){}
 
+  //* Checks if the logged in user is an admin using the decoded tokens email to query the database.
   async isAdmin() {
     const token = localStorage.getItem('token') as string;
     const decodedtoken  = jwt_decode(token) as any;

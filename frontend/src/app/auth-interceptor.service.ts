@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+//* Checks if there is a JWT token in local storage and if so, append it as an Authorization header to the request before sending it to the server.js
 export class AuthInterceptorService implements HttpInterceptor {
 
   constructor() {}

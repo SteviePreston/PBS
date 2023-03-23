@@ -8,7 +8,7 @@ export class AuthGuardService implements CanActivate {
 
   constructor(private router: Router) {}
 
-  //checks if user is logged in (checks JWT token)
+  //* checks if user is logged in (checks JWT token)
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean | UrlTree {

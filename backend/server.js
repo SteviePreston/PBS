@@ -40,66 +40,6 @@ db.connect(function(err) {
 API_VERSION = "/v1";
 API_PATH = API_VERSION + "/api";
 
-// //* get customer data from the database
-// app.get(API_PATH + "/customer", (req, res)=>{
-//     let qr = "SELECT * FROM CUSTOMER";
-//     db.query(qr, (err, result)=>{
-//         if (err) console.error(err, 'errs');
-
-//         if (result.length>0) {
-//             res.send({
-//                 message:"All customer data...",
-//                 data:result,
-//             });
-//         }
-//     });
-// });
-  
-// //* Get a singular user from the database from their customerID
-// app.get(API_PATH +"/customer/:customerID", (req, res)=>{
-//     let customerID = req.params.customerID;
-//     let qr = `SELECT * FROM CUSTOMER WHERE customerID = ?`;
-
-//     db.query(qr, [customerID], (err, result)=>{
-//         if (err) {
-//             console.error(err);
-//             res.status(500).send('Error retrieving customer data');
-//         } else {
-//             if (result.length > 0) {
-//                 res.status(200).send({
-//                     message: "Singular customer data...",
-//                     data: result,
-//                 });
-//             } else {
-//                 res.status(404).send("Data not found...");
-//             }
-//         }
-//     });
-// });
-
-// //* Post a singular user into the database.
-// app.post(API_PATH +"/customer", (req, res) => {
-
-//     let houseNumber = req.body.houseNumber;
-//     let address = req.body.address;
-//     let city = req.body.city;
-//     let county = req.body.county;
-//     let postCode = req.body.postCode;
-//     let phoneNumber = req.body.phoneNumber;
-  
-//     let qr = `INSERT INTO CUSTOMER (houseNumber, address, city, county, postCode, phoneNumber) VALUES (?, ?, ?, ?, ?, ?)`;
-  
-//     db.query(qr, [houseNumber, address, city, county, postCode, phoneNumber], (err, result) => {
-//       if (err) {
-//         console.error(err);
-//         res.status(500).send("Error inserting record");
-//       } else {
-//         console.log(result, "result");
-//         res.status(201).send("Record inserted successfully");
-//       }
-//     });
-// });
-
 //* user register endpoint
 app.post(API_PATH +"/register", (req, res) => {
     let houseNumber = req.body.houseNumber;
@@ -178,7 +118,7 @@ app.post(API_PATH +"/login", (req, res)=>{
             if (user.passwordHash !== passwordHash){
                 res.status(401).json({message: 'Invalid email or password'});
             } else {
-                // Create JWT token
+                // Create JWT token, signs it with the secret
                 const token = jwt.sign({ email: user.email }, secret, { expiresIn: '6h' });
 
                 // Return JWT token to client
@@ -451,7 +391,7 @@ app.put(API_PATH + "/account/:email", authenticateToken, (req, res) => {
   
 
 //? =======================================================================================================================
-//* Middleware function
+//* Middleware function - checks if the JWT token is valid between requests protecting the database from invalid users
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
